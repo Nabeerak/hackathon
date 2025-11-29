@@ -18,14 +18,15 @@ const config: Config = {
   url: 'https://Nabeerak.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/physical-ai-humanoid-robotics/',
+  baseUrl: '/hackathon/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Nabeerak', // Usually your GitHub org/user name.
-  projectName: 'physical-ai-humanoid-robotics', // Usually your repo name.
+  projectName: 'hackathon', // Usually your repo name.
 
   onBrokenLinks: 'throw',
+  trailingSlash: false,
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -44,7 +45,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Nabeerak/hackathon/tree/main/docusaurus-book/',
         },
         blog: {
           showReadingTime: true,
@@ -55,7 +56,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Nabeerak/hackathon/tree/main/docusaurus-book/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -65,6 +66,20 @@ const config: Config = {
           customCss: './src/css/custom.css',
         },
       } satisfies Preset.Options,
+    ],
+  ],
+
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        hashed: true,
+        language: ["en"],
+        indexDocs: true,
+        indexBlog: true,
+        indexPages: true,
+        docsRouteBasePath: '/docs',
+      },
     ],
   ],
 
@@ -89,7 +104,7 @@ const config: Config = {
           to: '/docs/constitution',
         },
         {
-          href: 'https://github.com/panaversity/physical-ai-humanoid-robotics',
+          href: 'https://github.com/Nabeerak/hackathon',
           label: 'GitHub',
           position: 'right',
         },
@@ -121,7 +136,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/panaversity/physical-ai-humanoid-robotics',
+              href: 'https://github.com/Nabeerak/hackathon',
             },
           ],
         },
