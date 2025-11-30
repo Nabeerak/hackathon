@@ -1,151 +1,129 @@
-# Physical AI & Humanoid Robotics Textbook Website
+# Physical AI & Humanoid Robotics Textbook
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator. It hosts the Physical AI & Humanoid Robotics textbook content with built-in search functionality.
+A comprehensive open-source textbook covering Physical AI, humanoid robotics, ROS 2, NVIDIA Isaac, Vision-Language-Action models, and embodied intelligence.
 
-## Prerequisites
+## About This Textbook
+
+This textbook provides complete coverage of building intelligent physical AI systems, from foundational ROS 2 concepts through advanced humanoid robotics and VLA integration. Perfect for:
+
+- University courses on robotics and AI
+- Self-learners entering the robotics field
+- Researchers working on physical AI systems
+- Engineers building real-world robotic applications
+
+## Course Content
+
+### 📚 7 Major Chapters | 45 Comprehensive Sections
+
+1. **Course Overview** - Learning outcomes, prerequisites, weekly breakdown
+2. **Hardware & Infrastructure** - Workstations, edge kits, robots, cloud options
+3. **ROS 2 Fundamentals** - Installation, nodes, topics, services, navigation
+4. **Digital Twin Simulation** - Gazebo, Unity, URDF modeling, physics
+5. **NVIDIA Isaac Platform** - Isaac Sim, perception, SLAM, sim-to-real
+6. **Vision-Language-Action** - VLA models, multimodal learning, integration
+7. **Humanoid Robotics** - Locomotion, manipulation, HRI, conversational AI
+
+## Website Features
+
+- **Complete textbook content** with 45 chapters
+- **Full-text search** across all content
+- **Book-style navigation** with prev/next chapter buttons
+- **Mobile responsive** for reading on any device
+- **Print friendly** for physical distribution
+- **Dark mode** for comfortable reading
+
+## For Developers
+
+### Prerequisites
 
 - Node.js >= 20.0
-- npm (comes with Node.js)
+- npm or yarn
 
-## Installation
+### Setup
 
 ```bash
 npm install
-```
-
-This will install all required dependencies including Docusaurus core and the local search plugin.
-
-## Local Development
-
-```bash
 npm start
 ```
 
-This command starts a local development server and opens up a browser window at `http://localhost:3000`. Most changes are reflected live without having to restart the server.
+This starts the development server at `http://localhost:3000/hackathon/`
 
-## Build
+### Build
 
 ```bash
 npm run build
 ```
 
-This command generates static content into the `build` directory. The build process includes:
-- Compiling all markdown documentation
-- Building the search index for local search functionality
-- Optimizing assets for production
+Generates optimized static files in the `build/` directory.
 
-## Test Build Locally
-
-```bash
-npm run serve
-```
-
-This command serves the built website locally to test the production build before deployment.
-
-## Deployment to GitHub Pages
-
-This project is configured to deploy to GitHub Pages at: `https://Nabeerak.github.io/hackathon/`
-
-### Prerequisites for Deployment
-- Git repository must have a `gh-pages` branch enabled in GitHub Pages settings
-- You need write access to the repository
-
-### Deploy Command
+### Deploy to GitHub Pages
 
 ```bash
 npm run deploy
 ```
 
-This command:
-1. Builds the production-ready site
-2. Pushes the build output to the `gh-pages` branch
-3. GitHub Pages will automatically serve the updated site
+## For Instructors
 
-### Manual Deployment (Alternative)
+This textbook is designed for a 12-week university course on Physical AI and robotics. Each chapter includes:
 
-If the deploy script doesn't work, you can manually deploy:
+- **Learning objectives** for clear outcomes
+- **Code examples** with explanations
+- **Hands-on labs** for practical experience
+- **Further reading** for deeper exploration
 
-```bash
-npm run build
-cd build
-git init
-git add -A
-git commit -m "Deploy to GitHub Pages"
-git push -f git@github.com:Nabeerak/hackathon.git main:gh-pages
-```
+### Suggested Course Schedule
 
-## Project Structure
-
-```
-docusaurus-book/
-├── docs/               # Documentation markdown files
-│   ├── constitution.md # Project constitution
-│   ├── module1.md      # Sample module 1
-│   └── module2.md      # Sample module 2
-├── blog/               # Blog posts (optional)
-├── src/                # Custom React components and pages
-│   ├── components/     # Reusable components
-│   ├── css/           # Custom CSS
-│   └── pages/         # Custom pages
-├── static/            # Static assets (images, etc.)
-├── docusaurus.config.ts  # Docusaurus configuration
-├── sidebars.ts        # Sidebar configuration
-└── package.json       # Dependencies and scripts
-```
-
-## Features
-
-- **Documentation**: Organized textbook content with sidebar navigation
-- **Search**: Local search functionality that indexes all documentation and blog content
-- **Dark Mode**: Automatic dark mode support based on system preferences
-- **Mobile Responsive**: Optimized for all device sizes
-- **Edit on GitHub**: Links to edit pages directly on GitHub
-
-## Configuration
-
-The site configuration is in `docusaurus.config.ts`. Key settings:
-
-- **URL**: `https://Nabeerak.github.io`
-- **Base URL**: `/hackathon/`
-- **Organization**: `Nabeerak`
-- **Repository**: `hackathon`
-
-## Search Configuration
-
-The site uses `@easyops-cn/docusaurus-search-local` for local search functionality. The search indexes:
-- All documentation pages
-- Blog posts
-- Custom pages
-
-Search is configured in the `themes` section of `docusaurus.config.ts`.
-
-## Troubleshooting
-
-### Build Fails
-```bash
-npm run clear
-npm run build
-```
-
-### Search Not Working
-- Ensure you've run `npm run build` to generate the search index
-- The search index is only generated during the build process, not in development mode
-
-### Deployment Issues
-- Verify GitHub Pages is enabled in repository settings
-- Check that the `gh-pages` branch exists
-- Ensure you have push permissions to the repository
+- **Weeks 1-3**: ROS 2 Fundamentals & Navigation
+- **Weeks 4-5**: Digital Twin Simulation
+- **Weeks 6-8**: NVIDIA Isaac Platform & Perception
+- **Weeks 9-10**: Vision-Language-Action Models
+- **Weeks 11-12**: Humanoid Robotics & Final Project
 
 ## Contributing
 
-1. Make changes to documentation in the `docs/` directory
-2. Test locally with `npm start`
-3. Build and verify with `npm run build && npm run serve`
-4. Commit and push changes
-5. Deploy with `npm run deploy`
+Contributions are welcome! This is an open educational resource.
+
+### How to Contribute
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes to content in `docs/physical-ai-textbook/`
+4. Submit a pull request
+
+### Content Guidelines
+
+- Use clear, concise language
+- Include practical code examples
+- Add diagrams where helpful
+- Follow existing formatting style
+- Test all code snippets
+
+## License
+
+Copyright © 2024-2025 Panaversity.
+
+Educational use permitted. Commercial use requires permission.
 
 ## Resources
 
-- [Docusaurus Documentation](https://docusaurus.io/)
-- [Markdown Features](https://docusaurus.io/docs/markdown-features)
-- [Deployment Guide](https://docusaurus.io/docs/deployment)
+- **Live Textbook**: [https://Nabeerak.github.io/hackathon/](https://Nabeerak.github.io/hackathon/)
+- **GitHub Repository**: [https://github.com/Nabeerak/hackathon](https://github.com/Nabeerak/hackathon)
+- **Panaversity**: [https://panaversity.org](https://panaversity.org)
+
+## Technical Stack
+
+Built with modern web technologies for optimal reading experience:
+- Static site generator for fast loading
+- Local search for instant results
+- Responsive design for all devices
+- SEO optimized for discoverability
+
+## Support
+
+For questions or issues:
+- Open an issue on GitHub
+- Visit [Panaversity.org](https://panaversity.org)
+
+---
+
+**Building the future of Physical AI education, one chapter at a time.** 🤖📖

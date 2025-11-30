@@ -18,7 +18,7 @@ const config: Config = {
   url: 'https://Nabeerak.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/hackathon/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -41,27 +41,18 @@ const config: Config = {
       'classic',
       {
         docs: {
+          routeBasePath: '/', // Serve docs at the site's root
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/Nabeerak/hackathon/tree/main/docusaurus-book/',
+          showLastUpdateTime: true,
+          showLastUpdateAuthor: false,
+          breadcrumbs: true,
+          // Book-like features
+          sidebarCollapsible: true,
+          sidebarCollapsed: false,
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/Nabeerak/hackathon/tree/main/docusaurus-book/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false, // Disable blog functionality
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -76,9 +67,9 @@ const config: Config = {
         hashed: true,
         language: ["en"],
         indexDocs: true,
-        indexBlog: true,
+        indexBlog: false,
         indexPages: true,
-        docsRouteBasePath: '/docs',
+        docsRouteBasePath: '/',
       },
     ],
   ],
@@ -86,22 +77,40 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
+    docs: {
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: true,
+      },
+    },
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 4,
+    },
     colorMode: {
       respectPrefersColorScheme: true,
+      defaultMode: 'light',
     },
     navbar: {
       title: 'Physical AI & Humanoid Robotics Textbook',
+      hideOnScroll: false,
       logo: {
-        alt: 'Physical AI & Humanoid Robotics Textbook Logo',
+        alt: 'Physical AI Textbook',
         src: 'img/logo.svg',
+        href: '/physical-ai-textbook',
+        width: 32,
+        height: 32,
       },
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'physicalAiTextbook',
           position: 'left',
-          label: 'Constitution',
-          to: '/docs/constitution',
+          label: 'Read the Book',
+        },
+        {
+          type: 'search',
+          position: 'right',
         },
         {
           href: 'https://github.com/Nabeerak/hackathon',
@@ -114,34 +123,70 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Fundamentals',
           items: [
             {
-              label: 'Constitution',
-              to: '/docs/constitution',
+              label: 'Introduction',
+              to: '/physical-ai-textbook',
+            },
+            {
+              label: 'Hardware & Infrastructure',
+              to: '/physical-ai-textbook/hardware-infrastructure',
+            },
+            {
+              label: 'ROS 2 Fundamentals',
+              to: '/physical-ai-textbook/ros2-fundamentals',
+            },
+            {
+              label: 'Digital Twin Simulation',
+              to: '/physical-ai-textbook/digital-twin-simulation',
             },
           ],
         },
         {
-          title: 'Community',
+          title: 'Advanced Topics',
           items: [
             {
-              label: 'Panaversity Website',
+              label: 'NVIDIA Isaac Platform',
+              to: '/physical-ai-textbook/nvidia-isaac',
+            },
+            {
+              label: 'Vision-Language-Action',
+              to: '/physical-ai-textbook/vision-language-action',
+            },
+            {
+              label: 'Humanoid Robotics',
+              to: '/physical-ai-textbook/humanoid-robotics',
+            },
+            {
+              label: 'Appendices',
+              to: '/physical-ai-textbook/appendices/glossary',
+            },
+          ],
+        },
+        {
+          title: 'Resources',
+          items: [
+            {
+              label: 'Panaversity',
               href: 'https://panaversity.org',
             },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
             {
-              label: 'GitHub',
+              label: 'GitHub Repository',
               href: 'https://github.com/Nabeerak/hackathon',
+            },
+            {
+              label: 'ROS 2 Documentation',
+              href: 'https://docs.ros.org/en/humble/',
+            },
+            {
+              label: 'NVIDIA Isaac Sim',
+              href: 'https://docs.omniverse.nvidia.com/isaacsim/',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Panaversity. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Panaversity. All rights reserved.`,
     },
     prism: {
       theme: prismThemes.github,

@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: Chatbot API
+  version: 1.0.0
+paths:
+  /chat:
+    post:
+      summary: Send a message to the chatbot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                conversation_id:
+                  type: string
+                  nullable: true
+                message:
+                  type: string
+                  description: The user's message
+                selected_text:
+                  type: string
+                  nullable: true
+                  description: Optional selected text from the book for context
+      responses:
+        '200':
+          description: Chatbot response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  conversation_id:
+                    type: string
+                  sources:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          description: Invalid input
+        '429':
+          description: Rate limit exceeded
+  /conversations:
+    get:
+      summary: List all user conversations
+      responses:
+        '200':
+          description: List of conversations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    last_updated:
+                      type: string
+                      format: date-time
+    post:
+      summary: Create a new conversation session
+      responses:
+        '200':
+          description: New conversation created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+  /conversations/{conversation_id}:
+    get:
+      summary: Get a specific conversation by ID
+      parameters:
+        - in: path
+          name: conversation_id
+          required: true
+          schema:
+            type: string
+          description: ID of the conversation to retrieve
+      responses:
+        '200':
+          description: Conversation details
+        '404':
+          description: Conversation not found
+    delete:
+      summary: Delete a conversation by ID
+      parameters:
+        - in: path
+          name: conversation_id
+          required: true
+          schema:
+            type: string
+          description: ID of the conversation to delete
+      responses:
+        '204':
+          description: Conversation deleted successfully
+        '404':
+          description: Conversation not found

@@ -3,7 +3,16 @@
     "allow": [
       "Bash(npx gh-pages:*)",
       "Bash(git commit:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(npm run build:*)",
+      "Bash(python:*)",
+      "Bash(git checkout:*)",
+      "Bash(git branch:*)",
+      "Bash(.specify/scripts/bash/create-new-feature.sh:*)",
+      "Bash(.specify/scripts/bash/create-phr.sh:*)",
+      "Bash(.venvScriptsactivate:*)",
+      "Bash(alembic revision:*)",
+      "Bash(bash:*)"
     ],
     "deny": [],
     "ask": []

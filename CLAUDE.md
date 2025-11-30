@@ -211,3 +211,7 @@ See `.specify/memory/constitution.md` for code quality, testing, performance, se
 
 ## Recent Changes
 - 001-docusaurus-website: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+
+## Active Technologies
+- Markdown (MDX), Docusaurus 3.9.2, Node.js 20+ + Docusaurus core 3.9.2, @easyops-cn/docusaurus-search-local 0.52.1, React 19.0.0 (002-constitution-book)
+- Git repository (version control), Static files (images, assets) (002-constitution-book)

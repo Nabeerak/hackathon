@@ -1,0 +1,53 @@
+import os
+import markdown
+from bs4 import BeautifulSoup
+import re
+
+from backend.src.services.openai_service import OpenAIService
+from backend.src.services.qdrant_service import QdrantService
+
+class ChatService:
+    def __init__(self):
+        self.openai_service = OpenAIService()
+        self.qdrant_service = QdrantService()
+
+    def clean_text(self, text: str) -> str:
+        """Cleans text by removing markdown artifacts and excess whitespace."""
+        html = markdown.markdown(text)
+        soup = BeautifulSoup(html, features="html.parser")
+        clean_text = soup.get_text()
+        clean_text = re.sub(r'\s+', ' ', clean_text).strip()
+        return clean_text
+
+    def chunk_text(self, text: str, chunk_size: int = 1000, overlap: int = 200) -> list[str]:
+        """
+        Chunks text into smaller pieces with optional overlap.
+        A simple approach for demonstration. For production, consider more advanced chunking strategies.
+        """
+        chunks = []
+        start = 0
+        while start < len(text):
+            end = start + chunk_size
+            chunk = text[start:end]
+            chunks.append(chunk)
+            if end >= len(text):
+                break
+            start += (chunk_size - overlap)
+        return chunks
+
+    def retrieve_context(self, query: str, limit: int = 5) -> list[str]:
+        query_embedding = self.openai_service.get_embedding(query)
+        search_results = self.qdrant_service.search_vectors(query_embedding, limit=limit)
+        context = [point.payload["text_preview"] for point in search_results if "text_preview" in point.payload]
+        return context
+
+    def get_rag_response(self, user_question: str) -> str:
+        context = self.retrieve_context(user_question)
+
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided book content. If the question cannot be answered from the provided context, state that you cannot answer from the book content."},
+            {"role": "user", "content": f"Book Content: {' '.join(context)}\n\nQuestion: {user_question}"}
+        ]
+
+        response = self.openai_service.get_chat_completion(messages)
+        return response

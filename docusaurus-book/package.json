@@ -1,6 +1,7 @@
 {
-  "name": "docusaurus-book",
-  "version": "0.0.0",
+  "name": "physical-ai-humanoid-robotics-textbook",
+  "version": "1.0.0",
+  "description": "A comprehensive textbook on Physical AI and Humanoid Robotics covering ROS 2, NVIDIA Isaac, VLA models, and more",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -19,10 +20,12 @@
     "@docusaurus/preset-classic": "3.9.2",
     "@easyops-cn/docusaurus-search-local": "^0.52.1",
     "@mdx-js/react": "^3.0.0",
+    "axios": "^1.7.2",
     "clsx": "^2.0.0",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",

@@ -1,0 +1,183 @@
+# Frontmatter Schema Contract for Physical AI & Humanoid Robotics Textbook
+#
+# This schema defines the required and optional metadata fields for all
+# content pages in the textbook. All Markdown files MUST include valid
+# YAML frontmatter conforming to this schema.
+#
+# Feature: 002-constitution-book
+# Created: 2025-11-30
+# Phase: Phase 1 - Design
+
+# Base schema for all pages
+BasePageFrontmatter:
+  required:
+    - title          # string: Display title of the page
+    - sidebar_label  # string: Short label for sidebar navigation
+    - sidebar_position # number: Order in sidebar (1-based index)
+  optional:
+    - description    # string: Brief description for SEO (max 300 chars)
+    - keywords       # array<string>: Search keywords
+    - last_updated   # string: ISO date (YYYY-MM-DD)
+    - authors        # array<string>: Content authors
+    - tags           # array<string>: Content categorization tags
+    - draft          # boolean: If true, page excluded from production build
+
+# Extended schema for chapter index pages
+ChapterIndexFrontmatter:
+  extends: BasePageFrontmatter
+  required:
+    - chapter_number # number: Chapter number (1-7)
+  optional:
+    - estimated_read_time # number: Minutes to read chapter
+    - prerequisites  # array<string>: Required prior knowledge
+    - learning_objectives # array<string>: What students will learn
+
+# Extended schema for section pages
+SectionFrontmatter:
+  extends: BasePageFrontmatter
+  optional:
+    - code_examples  # boolean: Page contains code examples
+    - hardware_specs # boolean: Page contains hardware specifications
+    - difficulty     # enum: ["beginner", "intermediate", "advanced"]
+
+# Extended schema for special pages
+SpecialPageFrontmatter:
+  extends: BasePageFrontmatter
+  # No additional fields, uses base schema only
+
+# Example frontmatter for chapter index
+example_chapter_index:
+  title: "ROS 2 Fundamentals"
+  sidebar_label: "ROS 2 Fundamentals"
+  sidebar_position: 4
+  chapter_number: 3
+  description: "Learn the Robot Operating System 2 framework for building robotic applications"
+  keywords: ["ROS 2", "robotics", "middleware", "nodes", "topics", "services"]
+  last_updated: "2025-11-30"
+  estimated_read_time: 45
+  prerequisites:
+    - "Basic Linux command-line knowledge"
+    - "Python 3.8+ or C++17 programming"
+  learning_objectives:
+    - "Understand ROS 2 architecture and design principles"
+    - "Create and manage ROS 2 nodes, topics, and services"
+    - "Implement navigation stack for mobile robots"
+
+# Example frontmatter for section page
+example_section:
+  title: "Nodes and Topics"
+  sidebar_label: "Nodes and Topics"
+  sidebar_position: 3
+  description: "Learn how to create ROS 2 nodes and communicate using topics"
+  keywords: ["ROS 2", "nodes", "topics", "publisher", "subscriber"]
+  last_updated: "2025-11-30"
+  code_examples: true
+  difficulty: "beginner"
+
+# Example frontmatter for hardware specification page
+example_hardware_spec:
+  title: "Digital Twin Workstation"
+  sidebar_label: "Digital Twin Workstation"
+  sidebar_position: 2
+  description: "Hardware specifications for running NVIDIA Isaac Sim and ROS 2 simulations"
+  keywords: ["workstation", "hardware", "NVIDIA RTX", "Isaac Sim", "specifications"]
+  last_updated: "2025-11-30"
+  hardware_specs: true
+
+# Example frontmatter for course overview page
+example_course_overview:
+  title: "Course Learning Outcomes"
+  sidebar_label: "Learning Outcomes"
+  sidebar_position: 1
+  description: "Comprehensive learning outcomes for the Physical AI course"
+  keywords: ["learning outcomes", "course structure", "objectives"]
+  last_updated: "2025-11-30"
+
+# Validation Rules
+validation_rules:
+  title:
+    max_length: 100
+    pattern: "^[A-Za-z0-9 &():-]+$"
+    description: "Must be clear, descriptive, and under 100 characters"
+
+  sidebar_label:
+    max_length: 40
+    pattern: "^[A-Za-z0-9 &():-]+$"
+    description: "Must be concise and under 40 characters for sidebar display"
+
+  sidebar_position:
+    type: "integer"
+    minimum: 1
+    description: "Positive integer representing order in sidebar"
+
+  description:
+    max_length: 300
+    description: "Brief description for search engines, under 300 characters"
+
+  keywords:
+    type: "array"
+    min_items: 3
+    max_items: 10
+    item_type: "string"
+    description: "3-10 relevant keywords for search indexing"
+
+  last_updated:
+    type: "string"
+    pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+    description: "ISO date format (YYYY-MM-DD)"
+
+  chapter_number:
+    type: "integer"
+    minimum: 1
+    maximum: 7
+    description: "Chapter number from 1 to 7"
+
+  estimated_read_time:
+    type: "integer"
+    minimum: 5
+    maximum: 120
+    description: "Minutes to read, between 5 and 120"
+
+  difficulty:
+    type: "enum"
+    values: ["beginner", "intermediate", "advanced"]
+    description: "Content difficulty level"
+
+# Special Cases
+
+# Book index (main entry point)
+book_index_frontmatter:
+  title: "Physical AI & Humanoid Robotics"
+  sidebar_label: "Introduction"
+  sidebar_position: 1
+  description: "A comprehensive textbook on Physical AI, humanoid robotics, ROS 2, and embodied intelligence"
+  keywords: ["Physical AI", "humanoid robotics", "ROS 2", "NVIDIA Isaac", "VLA", "embodied intelligence"]
+  last_updated: "2025-11-30"
+
+# Glossary page
+glossary_frontmatter:
+  title: "Glossary"
+  sidebar_label: "Glossary"
+  sidebar_position: 1
+  description: "Definitions of key terms in Physical AI and robotics"
+  keywords: ["glossary", "definitions", "terminology", "robotics"]
+  last_updated: "2025-11-30"
+
+# Troubleshooting guide
+troubleshooting_frontmatter:
+  title: "Troubleshooting Guide"
+  sidebar_label: "Troubleshooting"
+  sidebar_position: 3
+  description: "Common issues and solutions for Physical AI development"
+  keywords: ["troubleshooting", "debugging", "errors", "solutions"]
+  last_updated: "2025-11-30"
+
+# Notes for implementers
+implementation_notes:
+  - "All frontmatter must be valid YAML"
+  - "Required fields must be present in every file"
+  - "sidebar_position must be unique within each directory"
+  - "Use consistent keyword capitalization (prefer lowercase)"
+  - "Update last_updated whenever content changes"
+  - "Validate frontmatter before committing"
+  - "Use draft: true for work-in-progress content"

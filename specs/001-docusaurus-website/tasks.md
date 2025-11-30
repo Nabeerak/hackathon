@@ -14,7 +14,7 @@ The implementation will follow an MVP-first approach, focusing on delivering Use
 ## Phase 1: Setup (Project Initialization)
 
 - [X] T001 Create Docusaurus project structure in `docusaurus-book/`
-- [ ] T002 Configure Docusaurus `docusaurus.config.js` for basic site metadata and routing in `docusaurus-book/docusaurus.config.js`
+- [X] T002 Configure Docusaurus `docusaurus.config.js` for basic site metadata and routing in `docusaurus-book/docusaurus.config.js`
 - [X] T003 Update `package.json` with Docusaurus scripts in `docusaurus-book/package.json`
 - [X] T004 Set up GitHub Pages deployment configuration in `docusaurus-book/docusaurus.config.js`
 
@@ -30,21 +30,21 @@ The implementation will follow an MVP-first approach, focusing on delivering Use
 
 - [X] T007 [US1] Configure Docusaurus sidebar to include `constitution.md` and sample chapters in `docusaurus-book/docusaurus.config.js`
 - [X] T008 [US1] Verify local Docusaurus build and navigation (`npm run start` in `docusaurus-book/`)
-- [ ] T009 [US1] Deploy Docusaurus site to GitHub Pages
+- [X] T009 [US1] Deploy Docusaurus site to GitHub Pages
 
 ## Phase 4: User Story 2 - Search Textbook Content (Priority: P2)
 
 **Goal**: Students can search for specific topics or keywords within the Docusaurus website.
 **Independent Test**: Enter a search query on the deployed site and verify that relevant results from the textbook content are displayed.
 
-- [ ] T010 [US2] Integrate Docusaurus search functionality (e.g., DocSearch or local search) in `docusaurus-book/docusaurus.config.js` and potentially custom components in `docusaurus-book/src/`
-- [ ] T011 [US2] Configure search to index all relevant textbook content (Docusaurus search configuration)
-- [ ] T012 [US2] Verify search functionality on the deployed GitHub Pages site
+- [X] T010 [US2] Integrate Docusaurus search functionality (e.g., DocSearch or local search) in `docusaurus-book/docusaurus.config.js` and potentially custom components in `docusaurus-book/src/`
+- [X] T011 [US2] Configure search to index all relevant textbook content (Docusaurus search configuration)
+- [X] T012 [US2] Verify search functionality on the deployed GitHub Pages site
 
 ## Final Phase: Polish & Cross-Cutting Concerns
 
-- [ ] T013 Update `README.md` in `docusaurus-book/` with instructions for local development and deployment
-- [ ] T014 Review and commit all changes
+- [X] T013 Update `README.md` in `docusaurus-book/` with instructions for local development and deployment
+- [X] T014 Review and commit all changes
 
 ## Dependencies
 
