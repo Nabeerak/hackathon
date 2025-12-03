@@ -1,46 +1,28 @@
+from dotenv import load_dotenv
+
+load_dotenv() # Load environment variables from .env file
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.util import get_remote_address
-from slowapi.errors import RateLimitExceeded
+import uvicorn
 
-from src.api import chat
-from src.api import conversations
-from src.api import search
-from src.database import engine
-from src.models import models
+from .router import chat_router
 
-# Create database tables (commented out - tables already exist)
-# models.Base.metadata.create_all(bind=engine)
+app = FastAPI()
 
-# Initialize rate limiter
-limiter = Limiter(key_func=get_remote_address, default_limits=["30/minute"])
-
-# Create FastAPI app
-app = FastAPI(title="Chatbot API", version="1.0.0")
-
-# Add rate limiter to app state
-app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
-
-# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Docusaurus default port
+    allow_origins=["http://localhost:3000"],  # Adjust this to your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include routers
-app.include_router(chat.router, prefix="/api", tags=["chat"])
-app.include_router(conversations.router, prefix="/api", tags=["conversations"])
-app.include_router(search.router, prefix="/api", tags=["search"])
+app.include_router(chat_router)
 
 @app.get("/")
-async def root():
-    return {"message": "Chatbot API is running", "version": "1.0.0"}
+async def read_root():
+    return {"message": "Chatbot backend is running"}
 
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
