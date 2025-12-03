@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-hardware-infrastructure/physical-ai-edge-kits" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Physical AI Edge Kits | Physical AI &amp; Humanoid Robotics Textbook</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://Nabeerak.github.io/hackathon/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://Nabeerak.github.io/hackathon/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://Nabeerak.github.io/hackathon/physical-ai-textbook/hardware-infrastructure/physical-ai-edge-kits"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Physical AI Edge Kits | Physical AI &amp; Humanoid Robotics Textbook"><meta data-rh="true" name="description" content="Edge computing options for Physical AI on mobile robots"><meta data-rh="true" property="og:description" content="Edge computing options for Physical AI on mobile robots"><meta data-rh="true" name="keywords" content="edge computing,robotics,Physical AI,NVIDIA Jetson,embedded systems"><link data-rh="true" rel="icon" href="/hackathon/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://Nabeerak.github.io/hackathon/physical-ai-textbook/hardware-infrastructure/physical-ai-edge-kits"><link data-rh="true" rel="alternate" href="https://Nabeerak.github.io/hackathon/physical-ai-textbook/hardware-infrastructure/physical-ai-edge-kits" hreflang="en"><link data-rh="true" rel="alternate" href="https://Nabeerak.github.io/hackathon/physical-ai-textbook/hardware-infrastructure/physical-ai-edge-kits" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Physical AI Edge Kits","item":"https://Nabeerak.github.io/hackathon/physical-ai-textbook/hardware-infrastructure/physical-ai-edge-kits"}]}</script><link rel="stylesheet" href="/hackathon/assets/css/styles.4646eecb.css">
+<script src="/hackathon/assets/js/runtime~main.f06ede89.js" defer="defer"></script>
+<script src="/hackathon/assets/js/main.1ce0bf12.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/hackathon/img/logo.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/hackathon/"><div class="navbar__logo"><img src="/hackathon/img/logo.svg" alt="Physical AI Textbook" class="themedComponent_mlkZ themedComponent--light_NVdE" height="32" width="32"><img src="/hackathon/img/logo.svg" alt="Physical AI Textbook" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="32" width="32"></div><b class="navbar__title text--truncate">Physical AI &amp; Humanoid Robotics Textbook</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div><a href="https://github.com/Nabeerak/hackathon" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/hackathon/physical-ai-textbook"><span title="Introduction" class="linkLabel_WmDU">Introduction</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/hackathon/physical-ai-textbook/course-overview/learning-outcomes"><span title="Course Overview" class="categoryLinkLabel_W154">Course Overview</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/hackathon/physical-ai-textbook/course-overview/learning-outcomes"><span title="Learning Outcomes" class="linkLabel_WmDU">Learning Outcomes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/hackathon/physical-ai-textbook/course-overview/weekly-breakdown"><span title="Weekly Breakdown" class="linkLabel_WmDU">Weekly Breakdown</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/hackathon/physical-ai-textbook/course-overview/prerequisites"><span title="Prerequisites" class="linkLabel_WmDU">Prerequisites</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/hackathon/physical-ai-textbook/hardware-infrastructure"><span title="Hardware &amp; Infrastructure" class="categoryLinkLabel_W154">Hardware &amp; Infrastructure</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/hackathon/physical-ai-textbook/hardware-infrastructure"><span title="Overview" class="linkLabel_WmDU">Overview</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/hackathon/physical-ai-textbook/hardware-infrastructure/digital-twin-workstation"><span title="Digital Twin Workstation" class="linkLabel_WmDU">Digital Twin Workstation</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/hackathon/physical-ai-textbook/hardware-infrastructure/physical-ai-edge-kits"><span title="Physical AI Edge Kits" class="linkLabel_WmDU">Physical AI Edge Kits</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/hackathon/physical-ai-textbook/hardware-infrastructure/robot-lab-options"><span title="Robot Lab Options" class="linkLabel_WmDU">Robot Lab Options</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/hackathon/physical-ai-textbook/hardware-infrastructure/cloud-native-alternatives"><span title="Cloud-Native Alternatives" class="linkLabel_WmDU">Cloud-Native Alternatives</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/hackathon/physical-ai-textbook/ros2-fundamentals"><span title="ROS 2 Fundamentals" class="categoryLinkLabel_W154">ROS 2 Fundamentals</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/hackathon/physical-ai-textbook/digital-twin-simulation"><span title="Digital Twin Simulation" class="categoryLinkLabel_W154">Digital Twin Simulation</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/hackathon/physical-ai-textbook/nvidia-isaac"><span title="NVIDIA Isaac Platform" class="categoryLinkLabel_W154">NVIDIA Isaac Platform</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/hackathon/physical-ai-textbook/vision-language-action"><span title="Vision-Language-Action (VLA)" class="categoryLinkLabel_W154">Vision-Language-Action (VLA)</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/hackathon/physical-ai-textbook/humanoid-robotics"><span title="Humanoid Robotics" class="categoryLinkLabel_W154">Humanoid Robotics</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/hackathon/physical-ai-textbook/ai-integration/reusable-intelligence"><span title="AI Integration" class="categoryLinkLabel_W154">AI Integration</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/hackathon/physical-ai-textbook/appendices/glossary"><span title="Appendices" class="categoryLinkLabel_W154">Appendices</span></a></div></li></ul></nav><button type="button" title="Collapse sidebar" aria-label="Collapse sidebar" class="button button--secondary button--outline collapseSidebarButton_PEFL"><svg width="20" height="20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_"><g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g></svg></button></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/hackathon/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Hardware &amp; Infrastructure</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Physical AI Edge Kits</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Physical AI Edge Kits</h1></header>
+<p>Physical AI Edge Kits are compact computing solutions designed to run AI algorithms directly on mobile robots. These systems enable real-world deployment of the simulation-tested algorithms you develop in Isaac Sim and Gazebo. Unlike workstation-class systems, edge kits must balance computational power with power efficiency, size constraints, and cost considerations.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="learning-objectives">Learning Objectives<a href="#learning-objectives" class="hash-link" aria-label="Direct link to Learning Objectives" title="Direct link to Learning Objectives" translate="no">​</a></h2>
+<p>After completing this section, you will be able to:</p>
+<ul>
+<li class=""><strong>Evaluate</strong> edge computing platforms for mobile robotics applications</li>
+<li class=""><strong>Configure</strong> NVIDIA Jetson platforms for ROS 2 and Isaac ROS packages</li>
+<li class=""><strong>Integrate</strong> sensors like Intel RealSense for perception on mobile platforms</li>
+<li class=""><strong>Compare</strong> the trade-offs between computational power and power efficiency</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-edge-computing-for-mobile-robots">Why Edge Computing for Mobile Robots?<a href="#why-edge-computing-for-mobile-robots" class="hash-link" aria-label="Direct link to Why Edge Computing for Mobile Robots?" title="Direct link to Why Edge Computing for Mobile Robots?" translate="no">​</a></h2>
+<p>While Digital Twin workstations provide powerful simulation capabilities, real-world robot deployment requires edge computing for several reasons:</p>
+<ul>
+<li class=""><strong>Latency</strong>: Processing sensor data locally reduces communication delays</li>
+<li class=""><strong>Connectivity</strong>: Mobile robots may operate in environments without reliable network access</li>
+<li class=""><strong>Safety</strong>: Critical control decisions must be made without network dependencies</li>
+<li class=""><strong>Privacy</strong>: Sensitive data is processed locally rather than transmitted</li>
+<li class=""><strong>Cost</strong>: Reduces ongoing cloud computing expenses</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="nvidia-jetson-platforms">NVIDIA Jetson Platforms<a href="#nvidia-jetson-platforms" class="hash-link" aria-label="Direct link to NVIDIA Jetson Platforms" title="Direct link to NVIDIA Jetson Platforms" translate="no">​</a></h2>
+<p>NVIDIA Jetson platforms are the industry standard for AI at the edge, offering excellent performance per watt for robotics applications. These platforms are specifically designed for robotics and AI workloads, with built-in support for ROS 2 and NVIDIA&#x27;s Isaac ROS packages.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="nvidia-jetson-orin-nano">NVIDIA Jetson Orin Nano<a href="#nvidia-jetson-orin-nano" class="hash-link" aria-label="Direct link to NVIDIA Jetson Orin Nano" title="Direct link to NVIDIA Jetson Orin Nano" translate="no">​</a></h3>
+<p><strong>Specifications</strong>:</p>
+<ul>
+<li class=""><strong>GPU</strong>: 1024-core NVIDIA Ampere architecture GPU</li>
+<li class=""><strong>CPU</strong>: ARM Cortex-A78AE 6-core processor</li>
+<li class=""><strong>Memory</strong>: 4GB or 8GB LPDDR5</li>
+<li class=""><strong>Power</strong>: 7W to 15W consumption</li>
+<li class=""><strong>AI Performance</strong>: Up to 40 TOPS (INT8)</li>
+<li class=""><strong>Connectivity</strong>: Dual Gigabit Ethernet, Wi-Fi 6, Bluetooth 5.2</li>
+</ul>
+<p><strong>Use Cases</strong>:</p>
+<ul>
+<li class="">Small mobile robots with basic AI perception</li>
+<li class="">Educational platforms and prototyping</li>
+<li class="">Budget-conscious deployments</li>
+<li class="">Low-power applications</li>
+<li class="">Simple navigation and obstacle avoidance</li>
+</ul>
+<p><strong>ROS 2 Integration</strong>:</p>
+<ul>
+<li class="">Full ROS 2 Humble support on Ubuntu 22.04</li>
+<li class="">Isaac ROS packages optimized for robotics perception</li>
+<li class="">NVIDIA Hardware Acceleration for computer vision</li>
+<li class="">Support for multiple sensor streams with hardware optimization</li>
+</ul>
+<p><strong>Setup Process</strong>:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Flash JetPack 5.1+ (based on Ubuntu 20.04/22.04)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Install ROS 2 Humble</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt update</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-ros-base</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Install Isaac ROS packages</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-isaac-ros-*  # All Isaac packages</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Or specific packages:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-isaac-ros-perceptor</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-isaac-ros-visual- slam</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Optimize performance for robotics workloads</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo nvpmodel -m 0  # Maximum performance mode</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo jetson_clocks  # Lock clocks for consistent performance</span><br></span></code></pre></div></div>
+<p><strong>Estimated Cost</strong>: $350-400</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="nvidia-jetson-orin-nx">NVIDIA Jetson Orin NX<a href="#nvidia-jetson-orin-nx" class="hash-link" aria-label="Direct link to NVIDIA Jetson Orin NX" title="Direct link to NVIDIA Jetson Orin NX" translate="no">​</a></h3>
+<p><strong>Specifications</strong>:</p>
+<ul>
+<li class=""><strong>GPU</strong>: 1024-core NVIDIA Ampere architecture GPU</li>
+<li class=""><strong>CPU</strong>: ARM Cortex-A78AE 8-core processor</li>
+<li class=""><strong>Memory</strong>: 8GB or 16GB LPDDR5</li>
+<li class=""><strong>Power</strong>: 10W to 25W consumption</li>
+<li class=""><strong>AI Performance</strong>: Up to 100 TOPS (INT8)</li>
+<li class=""><strong>Connectivity</strong>: Enhanced I/O options, PCIe Gen 4</li>
+</ul>
+<p><strong>Use Cases</strong>:</p>
+<ul>
+<li class="">Medium-sized robots with complex perception</li>
+<li class="">Multi-sensor fusion applications</li>
+<li class="">VLA model deployment (simplified versions)</li>
+<li class="">More demanding AI workloads</li>
+<li class="">Real-time SLAM and mapping</li>
+</ul>
+<p><strong>ROS 2 Integration</strong>:</p>
+<ul>
+<li class="">Native ROS 2 support with optimized performance</li>
+<li class="">Isaac ROS for advanced perception pipelines</li>
+<li class="">Support for multiple camera streams simultaneously</li>
+<li class="">Real-time SLAM capabilities with hardware acceleration</li>
+</ul>
+<p><strong>Setup Process</strong>:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Install core ROS 2 packages</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-desktop</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Install Jetson-specific optimizations</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install nvidia-jetpack nvidia-jetson-isaac-ros</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Configure for robotics applications</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo jetson_clocks</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo nvpmodel -m 0</span><br></span></code></pre></div></div>
+<p><strong>Estimated Cost</strong>: $450-500</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="nvidia-jetson-agx-orin-professional">NVIDIA Jetson AGX Orin (Professional)<a href="#nvidia-jetson-agx-orin-professional" class="hash-link" aria-label="Direct link to NVIDIA Jetson AGX Orin (Professional)" title="Direct link to NVIDIA Jetson AGX Orin (Professional)" translate="no">​</a></h3>
+<p><strong>Specifications</strong>:</p>
+<ul>
+<li class=""><strong>GPU</strong>: 2048-core NVIDIA Ampere architecture GPU</li>
+<li class=""><strong>CPU</strong>: ARM Cortex-A78AE 12-core processor</li>
+<li class=""><strong>Memory</strong>: 32GB or 64GB LPDDR5</li>
+<li class=""><strong>Power</strong>: 15W to 60W consumption</li>
+<li class=""><strong>AI Performance</strong>: Up to 275 TOPS (INT8)</li>
+<li class=""><strong>Connectivity</strong>: Quad Gigabit Ethernet, enhanced I/O</li>
+</ul>
+<p><strong>Use Cases</strong>:</p>
+<ul>
+<li class="">Advanced humanoid robots with multiple AI tasks</li>
+<li class="">Complex VLA model inference in simplified forms</li>
+<li class="">Multi-robot coordination systems</li>
+<li class="">Professional and research applications</li>
+<li class="">High-performance computer vision workloads</li>
+</ul>
+<p><strong>ROS 2 Integration</strong>:</p>
+<ul>
+<li class="">Full ROS 2 ecosystem support with maximum performance</li>
+<li class="">Isaac ROS Industrial packages for complex applications</li>
+<li class="">High-throughput sensor processing with multiple streams</li>
+<li class="">Advanced motion planning and control algorithms</li>
+</ul>
+<p><strong>Estimated Cost</strong>: $1,200-1,500</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="intel-realsense-sensors">Intel RealSense Sensors<a href="#intel-realsense-sensors" class="hash-link" aria-label="Direct link to Intel RealSense Sensors" title="Direct link to Intel RealSense Sensors" translate="no">​</a></h2>
+<p>Intel RealSense sensors provide high-quality depth perception for mobile robots, essential for navigation, manipulation, and environment mapping. These sensors are commonly used in conjunction with Jetson platforms for complete perception systems.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="intel-realsense-d435i">Intel RealSense D435i<a href="#intel-realsense-d435i" class="hash-link" aria-label="Direct link to Intel RealSense D435i" title="Direct link to Intel RealSense D435i" translate="no">​</a></h3>
+<p><strong>Specifications</strong>:</p>
+<ul>
+<li class=""><strong>Depth Technology</strong>: Stereo Vision with active illumination</li>
+<li class=""><strong>Depth Range</strong>: 0.2m to 10m</li>
+<li class=""><strong>Depth Accuracy</strong>: ±2% relative accuracy</li>
+<li class=""><strong>Inertial Sensors</strong>: Built-in IMU with accelerometer and gyroscope</li>
+<li class=""><strong>RGB Camera</strong>: 1920x1080 at 30 FPS</li>
+<li class=""><strong>Connectivity</strong>: USB 3.1 Type-C</li>
+<li class=""><strong>Field of View</strong>: 87° x 58° x 95° (HxVxD)</li>
+</ul>
+<p><strong>ROS 2 Integration</strong>:</p>
+<ul>
+<li class="">ROS 2 RealSense package support via realsense2_camera</li>
+<li class="">PointCloud2 message support for 3D processing</li>
+<li class="">Hardware synchronization with IMU for accurate fusion</li>
+<li class="">Calibration tools specifically for robot integration</li>
+</ul>
+<p><strong>Setup Process</strong>:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Install RealSense packages</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-realsense2-camera</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-realsense2-description</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Add user to dialout group for USB access</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo usermod -a -G dialout $USER</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Test the camera</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ros2 launch realsense2_camera rs_launch.py</span><br></span></code></pre></div></div>
+<p><strong>Use Cases</strong>:</p>
+<ul>
+<li class="">Navigation and obstacle avoidance</li>
+<li class="">3D mapping and localization (SLAM)</li>
+<li class="">Object detection and recognition</li>
+<li class="">Manipulation with depth perception</li>
+<li class="">Environment monitoring</li>
+</ul>
+<p><strong>Estimated Cost</strong>: $179</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="intel-realsense-d455">Intel RealSense D455<a href="#intel-realsense-d455" class="hash-link" aria-label="Direct link to Intel RealSense D455" title="Direct link to Intel RealSense D455" translate="no">​</a></h3>
+<p><strong>Specifications</strong>:</p>
+<ul>
+<li class=""><strong>Depth Technology</strong>: Stereo Vision with active illumination</li>
+<li class=""><strong>Depth Range</strong>: 0.1m to 15m (improved)</li>
+<li class=""><strong>Depth Accuracy</strong>: ±1%, significantly improved over D435i</li>
+<li class=""><strong>RGB Camera</strong>: 1920x1080 at 30 FPS</li>
+<li class=""><strong>IR Projector</strong>: Advanced active IR for low-light performance</li>
+<li class=""><strong>Connectivity</strong>: USB 3.2 Type-C with enhanced bandwidth</li>
+<li class=""><strong>Advanced Features</strong>: Multiple operation modes, enhanced calibration</li>
+</ul>
+<p><strong>ROS 2 Integration</strong>:</p>
+<ul>
+<li class="">Enhanced ROS 2 drivers with improved accuracy and features</li>
+<li class="">Better low-light performance with advanced illumination</li>
+<li class="">Advanced calibration features for precise robot integration</li>
+<li class="">Multi-camera array support with synchronization</li>
+</ul>
+<p><strong>Use Cases</strong>:</p>
+<ul>
+<li class="">Improved indoor navigation in variable lighting conditions</li>
+<li class="">Precision manipulation tasks requiring high accuracy</li>
+<li class="">Outdoor robotics applications with variable lighting</li>
+<li class="">Research requiring high-quality depth data for complex algorithms</li>
+</ul>
+<p><strong>Estimated Cost</strong>: $399</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="additional-sensors-and-peripherals">Additional Sensors and Peripherals<a href="#additional-sensors-and-peripherals" class="hash-link" aria-label="Direct link to Additional Sensors and Peripherals" title="Direct link to Additional Sensors and Peripherals" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="usb-imu-inertial-measurement-unit">USB IMU (Inertial Measurement Unit)<a href="#usb-imu-inertial-measurement-unit" class="hash-link" aria-label="Direct link to USB IMU (Inertial Measurement Unit)" title="Direct link to USB IMU (Inertial Measurement Unit)" translate="no">​</a></h3>
+<p><strong>Specifications</strong>:</p>
+<ul>
+<li class=""><strong>Sensors</strong>: 3-axis accelerometer, gyroscope, magnetometer</li>
+<li class=""><strong>Accuracy</strong>: Variable based on model (0.1°-2° heading accuracy)</li>
+<li class=""><strong>Connectivity</strong>: USB interface with standard drivers</li>
+<li class=""><strong>Update Rate</strong>: Configurable from 100Hz to 1000Hz</li>
+<li class=""><strong>ROS 2 Integration</strong>: sensor_msgs/Imu messages, robot_localization package</li>
+</ul>
+<p><strong>Use Cases</strong>:</p>
+<ul>
+<li class="">Robot orientation and stability control</li>
+<li class="">Motion tracking for navigation</li>
+<li class="">Sensor fusion for robust localization</li>
+<li class="">Balance control for humanoid robots</li>
+</ul>
+<p><strong>Recommended Models</strong>:</p>
+<ul>
+<li class=""><strong>SparkFun 6DoF IMU</strong>: Budget-friendly with ROS 2 support ($50-75)</li>
+<li class=""><strong>CH Robotics UM7</strong>: Higher accuracy with magnetometer and ROS drivers ($200-250)</li>
+<li class=""><strong>XSens MTi</strong>: Professional-grade with advanced algorithms and precise calibration ($1,000+)</li>
+</ul>
+<p><strong>ROS 2 Integration</strong>:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Install IMU packages</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-imu-tools</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-robot-localization</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Launch IMU node</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ros2 run your_imu_package imu_publisher</span><br></span></code></pre></div></div>
+<p><strong>Estimated Cost</strong>: $50-1,000 depending on accuracy requirements</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="usb-microphone-array">USB Microphone Array<a href="#usb-microphone-array" class="hash-link" aria-label="Direct link to USB Microphone Array" title="Direct link to USB Microphone Array" translate="no">​</a></h3>
+<p><strong>Specifications</strong>:</p>
+<ul>
+<li class=""><strong>Microphones</strong>: 2-8 channels for advanced beamforming</li>
+<li class=""><strong>Sample Rate</strong>: 16kHz-48kHz configurable</li>
+<li class=""><strong>Connectivity</strong>: USB interface with class-compliant drivers</li>
+<li class=""><strong>Beamforming</strong>: Hardware or software-based spatial filtering</li>
+<li class=""><strong>ROS 2 Integration</strong>: audio_common packages, speech recognition nodes</li>
+</ul>
+<p><strong>Use Cases</strong>:</p>
+<ul>
+<li class="">Voice commands and natural language control</li>
+<li class="">Sound source localization for HRI</li>
+<li class="">Conversational robotics applications</li>
+<li class="">Acoustic environment monitoring</li>
+</ul>
+<p><strong>Recommended Models</strong>:</p>
+<ul>
+<li class=""><strong>ReSpeaker 4-Mic Array</strong>: 4 microphones for beamforming, ROS 2 support ($70)</li>
+<li class=""><strong>Matrix Voice</strong>: 8-microphone array with embedded FPGA processing ($150)</li>
+<li class=""><strong>Commercial USB Conference Mics</strong>: Various options with good ROS integration ($100-300)</li>
+</ul>
+<p><strong>ROS 2 Integration</strong>:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Install audio packages</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install ros-humble-audio-common</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Use with speech recognition</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ros2 run audio_capture audio_capture_node</span><br></span></code></pre></div></div>
+<p><strong>Estimated Cost</strong>: $70-300</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="usb-speaker-array">USB Speaker Array<a href="#usb-speaker-array" class="hash-link" aria-label="Direct link to USB Speaker Array" title="Direct link to USB Speaker Array" translate="no">​</a></h3>
+<p><strong>Specifications</strong>:</p>
+<ul>
+<li class=""><strong>Drivers</strong>: 2-8 channels for spatial audio reproduction</li>
+<li class=""><strong>Frequency Response</strong>: 20Hz-20kHz for full-range audio</li>
+<li class=""><strong>Power Output</strong>: 5W-20W total system output</li>
+<li class=""><strong>Connectivity</strong>: USB interface with standard audio class</li>
+<li class=""><strong>ROS 2 Integration</strong>: audio_common packages, text-to-speech nodes</li>
+</ul>
+<p><strong>Use Cases</strong>:</p>
+<ul>
+<li class="">Voice feedback and interactive responses</li>
+<li class="">Spatial audio cues for HRI</li>
+<li class="">Conversational robotics output</li>
+<li class="">Audio alerts and notifications</li>
+</ul>
+<p><strong>Recommended Models</strong>:</p>
+<ul>
+<li class=""><strong>USB Soundbars</strong>: Compact with good stereo quality ($50-100)</li>
+<li class=""><strong>Gaming Headsets</strong>: Built-in microphone array with ROS 2 compatibility ($100-200)</li>
+<li class=""><strong>Professional USB Speakers</strong>: High-fidelity reproduction for clear communication ($150-300)</li>
+</ul>
+<p><strong>Estimated Cost</strong>: $50-300</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="complete-edge-kit-configurations">Complete Edge Kit Configurations<a href="#complete-edge-kit-configurations" class="hash-link" aria-label="Direct link to Complete Edge Kit Configurations" title="Direct link to Complete Edge Kit Configurations" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="basic-mobile-robot-configuration">Basic Mobile Robot Configuration<a href="#basic-mobile-robot-configuration" class="hash-link" aria-label="Direct link to Basic Mobile Robot Configuration" title="Direct link to Basic Mobile Robot Configuration" translate="no">​</a></h3>
+<table><thead><tr><th>Component</th><th>Model</th><th>Purpose</th><th>Estimated Cost</th></tr></thead><tbody><tr><td><strong>Compute</strong></td><td>Jetson Orin Nano (8GB)</td><td>AI inference and basic control</td><td>$400</td></tr><tr><td><strong>Depth</strong></td><td>Intel RealSense D435i</td><td>3D perception and navigation</td><td>$179</td></tr><tr><td><strong>Inertial</strong></td><td>SparkFun 6DoF IMU</td><td>Motion tracking and basic stabilization</td><td>$75</td></tr><tr><td><strong>Audio</strong></td><td>ReSpeaker 4-Mic Array</td><td>Voice interaction and commands</td><td>$70</td></tr><tr><td><strong>Audio Output</strong></td><td>USB Soundbar</td><td>Voice feedback and alerts</td><td>$75</td></tr><tr><td><strong>Power System</strong></td><td>50W Power Supply</td><td>System operation and regulation</td><td>$50</td></tr></tbody></table>
+<p><strong>Total Estimated Cost</strong>: $849</p>
+<p><strong>Applications</strong>: Basic mobile navigation, object recognition, simple voice commands, environment mapping</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="advanced-humanoid-robot-configuration">Advanced Humanoid Robot Configuration<a href="#advanced-humanoid-robot-configuration" class="hash-link" aria-label="Direct link to Advanced Humanoid Robot Configuration" title="Direct link to Advanced Humanoid Robot Configuration" translate="no">​</a></h3>
+<table><thead><tr><th>Component</th><th>Model</th><th>Purpose</th><th>Estimated Cost</th></tr></thead><tbody><tr><td><strong>Compute</strong></td><td>Jetson AGX Orin (64GB)</td><td>Complex AI and multi-tasking</td><td>$1,500</td></tr><tr><td><strong>Depth</strong></td><td>Intel RealSense D455 (x2)</td><td>Stereo vision for complex perception</td><td>$798</td></tr><tr><td><strong>Inertial</strong></td><td>CH Robotics UM7</td><td>High-accuracy motion tracking for balance</td><td>$225</td></tr><tr><td><strong>Audio</strong></td><td>Matrix Voice</td><td>8-microphone array with embedded processing</td><td>$150</td></tr><tr><td><strong>Audio Output</strong></td><td>Professional USB Speakers</td><td>Spatial audio feedback for interaction</td><td>$200</td></tr><tr><td><strong>Additional Sensors</strong></td><td>Multiple IMUs, force/torque sensors</td><td>Full humanoid sensing for control</td><td>$500</td></tr><tr><td><strong>Power System</strong></td><td>300W Regulated Supply</td><td>High-power operation with safety</td><td>$150</td></tr></tbody></table>
+<p><strong>Total Estimated Cost</strong>: $3,523</p>
+<p><strong>Applications</strong>: Humanoid locomotion, complex manipulation, conversational AI, advanced HRI</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="performance-considerations">Performance Considerations<a href="#performance-considerations" class="hash-link" aria-label="Direct link to Performance Considerations" title="Direct link to Performance Considerations" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="computational-limits">Computational Limits<a href="#computational-limits" class="hash-link" aria-label="Direct link to Computational Limits" title="Direct link to Computational Limits" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>VLA Model Deployment</strong>: Complex VLA models may require simplification for edge deployment</li>
+<li class=""><strong>Real-time Performance</strong>: Rigorously benchmark models on target hardware before deployment</li>
+<li class=""><strong>Thermal Management</strong>: Adequate cooling is essential for sustained performance on mobile platforms</li>
+<li class=""><strong>Power Management</strong>: Implement dynamic frequency scaling for battery-powered operation</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ros-2-optimization-for-edge-platforms">ROS 2 Optimization for Edge Platforms<a href="#ros-2-optimization-for-edge-platforms" class="hash-link" aria-label="Direct link to ROS 2 Optimization for Edge Platforms" title="Direct link to ROS 2 Optimization for Edge Platforms" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Message Compression</strong>: Reduce bandwidth for high-frequency sensor streams</li>
+<li class=""><strong>Nodelet Architecture</strong>: Minimize communication overhead between components</li>
+<li class=""><strong>Hardware Acceleration</strong>: Utilize GPU for image and sensor processing</li>
+<li class=""><strong>Efficient Multi-threading</strong>: Optimize node execution for limited multi-core processors</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="integration-with-ros-2-ecosystem">Integration with ROS 2 Ecosystem<a href="#integration-with-ros-2-ecosystem" class="hash-link" aria-label="Direct link to Integration with ROS 2 Ecosystem" title="Direct link to Integration with ROS 2 Ecosystem" translate="no">​</a></h2>
+<p>The Physical AI Edge Kits are designed to work seamlessly with the ROS 2 ecosystem:</p>
+<ol>
+<li class=""><strong>Standard Message Types</strong>: All sensors support ROS 2 message standards for compatibility</li>
+<li class=""><strong>Launch Files</strong>: Pre-configured launch files for common sensor combinations</li>
+<li class=""><strong>Parameter Files</strong>: YAML files for sensor calibration and runtime configuration</li>
+<li class=""><strong>Hardware Abstraction</strong>: Common interfaces regardless of specific hardware model</li>
+<li class=""><strong>Simulation Bridge</strong>: Same algorithms work in simulation and on real hardware (sim-to-real transfer)</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="troubleshooting-edge-kit-issues">Troubleshooting Edge Kit Issues<a href="#troubleshooting-edge-kit-issues" class="hash-link" aria-label="Direct link to Troubleshooting Edge Kit Issues" title="Direct link to Troubleshooting Edge Kit Issues" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="power-issues">Power Issues<a href="#power-issues" class="hash-link" aria-label="Direct link to Power Issues" title="Direct link to Power Issues" translate="no">​</a></h3>
+<p><strong>Symptoms</strong>: Intermittent shutdowns, thermal throttling, sensor drops, performance degradation
+<strong>Solutions</strong>:</p>
+<ul>
+<li class="">Verify power supply meets total system requirements with headroom</li>
+<li class="">Check for power-hungry components during startup sequences</li>
+<li class="">Monitor system power consumption with power monitoring tools</li>
+<li class="">Consider separate power supplies for critical components</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="performance-bottlenecks">Performance Bottlenecks<a href="#performance-bottlenecks" class="hash-link" aria-label="Direct link to Performance Bottlenecks" title="Direct link to Performance Bottlenecks" translate="no">​</a></h3>
+<p><strong>Symptoms</strong>: Low frame rates, high latency, dropped messages, failed real-time constraints
+<strong>Solutions</strong>:</p>
+<ul>
+<li class="">Profile individual nodes to identify computational bottlenecks</li>
+<li class="">Optimize algorithms for edge hardware constraints using hardware acceleration</li>
+<li class="">Reduce sensor data rates or resolution if possible</li>
+<li class="">Use hardware acceleration features of Jetson platforms</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="connectivity-problems">Connectivity Problems<a href="#connectivity-problems" class="hash-link" aria-label="Direct link to Connectivity Problems" title="Direct link to Connectivity Problems" translate="no">​</a></h3>
+<p><strong>Symptoms</strong>: Sensors not detected, USB errors, intermittent communications, bandwidth issues
+<strong>Solutions</strong>:</p>
+<ul>
+<li class="">Check USB cable quality and length limitations (max 2m for USB 3.0)</li>
+<li class="">Verify proper USB port power delivery and bandwidth availability</li>
+<li class="">Update drivers and firmware to latest versions</li>
+<li class="">Use powered USB hubs if needed for multiple high-bandwidth devices</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="cost-effective-strategies">Cost-Effective Strategies<a href="#cost-effective-strategies" class="hash-link" aria-label="Direct link to Cost-Effective Strategies" title="Direct link to Cost-Effective Strategies" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="budget-options">Budget Options<a href="#budget-options" class="hash-link" aria-label="Direct link to Budget Options" title="Direct link to Budget Options" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Used Equipment</strong>: Check for gently used Jetson platforms from previous projects</li>
+<li class=""><strong>Academic Discounts</strong>: NVIDIA and Intel offer education pricing for students</li>
+<li class=""><strong>Bundles</strong>: Some retailers offer sensor bundles with discounts for robotics</li>
+<li class=""><strong>Refurbished</strong>: Consider refurbished options for non-critical applications</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="phased-implementation">Phased Implementation<a href="#phased-implementation" class="hash-link" aria-label="Direct link to Phased Implementation" title="Direct link to Phased Implementation" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Phase 1</strong>: Basic Jetson platform with single RGB camera for navigation</li>
+<li class=""><strong>Phase 2</strong>: Add depth sensor for 3D perception and mapping</li>
+<li class=""><strong>Phase 3</strong>: Add IMU for enhanced stability and localization</li>
+<li class=""><strong>Phase 4</strong>: Audio systems for human-robot interaction capabilities</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="model-optimization-for-edge-deployment">Model Optimization for Edge Deployment<a href="#model-optimization-for-edge-deployment" class="hash-link" aria-label="Direct link to Model Optimization for Edge Deployment" title="Direct link to Model Optimization for Edge Deployment" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tensorrt-optimization">TensorRT Optimization<a href="#tensorrt-optimization" class="hash-link" aria-label="Direct link to TensorRT Optimization" title="Direct link to TensorRT Optimization" translate="no">​</a></h3>
+<p>Convert PyTorch/TensorFlow models to TensorRT for 5-10x speedup on Jetson platforms:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Install TensorRT</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sudo apt install tensorrt python3-libnvinfer</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Convert models using TensorRT Python API</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">import tensorrt as trt</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Follow NVIDIA&#x27;s model optimization guides</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="quantization">Quantization<a href="#quantization" class="hash-link" aria-label="Direct link to Quantization" title="Direct link to Quantization" translate="no">​</a></h3>
+<p>Reduce model precision from FP32 to INT8 to save memory and increase speed:</p>
+<ul>
+<li class="">10-20% performance improvement typically achieved</li>
+<li class="">Requires calibration dataset for accuracy preservation</li>
+<li class="">Supported in Isaac ROS packages</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h2>
+<p>Physical AI Edge Kits enable the deployment of simulation-tested algorithms onto real robots. The NVIDIA Jetson family provides excellent AI inference capabilities in compact, power-efficient packages, while Intel RealSense sensors offer high-quality perception. Additional sensors like IMUs and audio arrays enable complete robotic systems capable of complex behaviors.</p>
+<p>When designing your edge computing solution, balance computational requirements with power, size, and cost constraints. The ROS 2 ecosystem provides seamless integration between simulation and real hardware, allowing you to deploy algorithms developed in Isaac Sim to physical robots.</p>
+<p>The key to successful edge deployment is to optimize your algorithms for the computational constraints while maintaining real-time performance. This enables the transition from simulation to real-world robotics applications.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="further-reading">Further Reading<a href="#further-reading" class="hash-link" aria-label="Direct link to Further Reading" title="Direct link to Further Reading" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="https://developer.nvidia.com/embedded/jetson-developer-kits" target="_blank" rel="noopener noreferrer" class="">NVIDIA Jetson Documentation</a></li>
+<li class=""><a href="https://github.com/IntelRealSense/realsense-ros" target="_blank" rel="noopener noreferrer" class="">Intel RealSense ROS 2 Integration</a></li>
+<li class=""><a href="https://github.com/NVIDIA-ISAAC-ROS" target="_blank" rel="noopener noreferrer" class="">Isaac ROS Packages</a></li>
+<li class=""><a href="https://robotics.raspberry.com/" target="_blank" rel="noopener noreferrer" class="">ROS 2 Robotics Platforms</a></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/Nabeerak/hackathon/tree/main/docusaurus-book/docs/hardware-infrastructure/physical-ai-edge-kits.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">Last updated<!-- --> on <b><time datetime="2025-12-03T06:11:20.000Z" itemprop="dateModified">Dec 3, 2025</time></b></span></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/hackathon/physical-ai-textbook/hardware-infrastructure/digital-twin-workstation"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Digital Twin Workstation</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/hackathon/physical-ai-textbook/hardware-infrastructure/robot-lab-options"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Robot Lab Options</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#learning-objectives" class="table-of-contents__link toc-highlight">Learning Objectives</a></li><li><a href="#why-edge-computing-for-mobile-robots" class="table-of-contents__link toc-highlight">Why Edge Computing for Mobile Robots?</a></li><li><a href="#nvidia-jetson-platforms" class="table-of-contents__link toc-highlight">NVIDIA Jetson Platforms</a><ul><li><a href="#nvidia-jetson-orin-nano" class="table-of-contents__link toc-highlight">NVIDIA Jetson Orin Nano</a></li><li><a href="#nvidia-jetson-orin-nx" class="table-of-contents__link toc-highlight">NVIDIA Jetson Orin NX</a></li><li><a href="#nvidia-jetson-agx-orin-professional" class="table-of-contents__link toc-highlight">NVIDIA Jetson AGX Orin (Professional)</a></li></ul></li><li><a href="#intel-realsense-sensors" class="table-of-contents__link toc-highlight">Intel RealSense Sensors</a><ul><li><a href="#intel-realsense-d435i" class="table-of-contents__link toc-highlight">Intel RealSense D435i</a></li><li><a href="#intel-realsense-d455" class="table-of-contents__link toc-highlight">Intel RealSense D455</a></li></ul></li><li><a href="#additional-sensors-and-peripherals" class="table-of-contents__link toc-highlight">Additional Sensors and Peripherals</a><ul><li><a href="#usb-imu-inertial-measurement-unit" class="table-of-contents__link toc-highlight">USB IMU (Inertial Measurement Unit)</a></li><li><a href="#usb-microphone-array" class="table-of-contents__link toc-highlight">USB Microphone Array</a></li><li><a href="#usb-speaker-array" class="table-of-contents__link toc-highlight">USB Speaker Array</a></li></ul></li><li><a href="#complete-edge-kit-configurations" class="table-of-contents__link toc-highlight">Complete Edge Kit Configurations</a><ul><li><a href="#basic-mobile-robot-configuration" class="table-of-contents__link toc-highlight">Basic Mobile Robot Configuration</a></li><li><a href="#advanced-humanoid-robot-configuration" class="table-of-contents__link toc-highlight">Advanced Humanoid Robot Configuration</a></li></ul></li><li><a href="#performance-considerations" class="table-of-contents__link toc-highlight">Performance Considerations</a><ul><li><a href="#computational-limits" class="table-of-contents__link toc-highlight">Computational Limits</a></li><li><a href="#ros-2-optimization-for-edge-platforms" class="table-of-contents__link toc-highlight">ROS 2 Optimization for Edge Platforms</a></li></ul></li><li><a href="#integration-with-ros-2-ecosystem" class="table-of-contents__link toc-highlight">Integration with ROS 2 Ecosystem</a></li><li><a href="#troubleshooting-edge-kit-issues" class="table-of-contents__link toc-highlight">Troubleshooting Edge Kit Issues</a><ul><li><a href="#power-issues" class="table-of-contents__link toc-highlight">Power Issues</a></li><li><a href="#performance-bottlenecks" class="table-of-contents__link toc-highlight">Performance Bottlenecks</a></li><li><a href="#connectivity-problems" class="table-of-contents__link toc-highlight">Connectivity Problems</a></li></ul></li><li><a href="#cost-effective-strategies" class="table-of-contents__link toc-highlight">Cost-Effective Strategies</a><ul><li><a href="#budget-options" class="table-of-contents__link toc-highlight">Budget Options</a></li><li><a href="#phased-implementation" class="table-of-contents__link toc-highlight">Phased Implementation</a></li></ul></li><li><a href="#model-optimization-for-edge-deployment" class="table-of-contents__link toc-highlight">Model Optimization for Edge Deployment</a><ul><li><a href="#tensorrt-optimization" class="table-of-contents__link toc-highlight">TensorRT Optimization</a></li><li><a href="#quantization" class="table-of-contents__link toc-highlight">Quantization</a></li></ul></li><li><a href="#summary" class="table-of-contents__link toc-highlight">Summary</a></li><li><a href="#further-reading" class="table-of-contents__link toc-highlight">Further Reading</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Fundamentals</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/hackathon/physical-ai-textbook">Introduction</a></li><li class="footer__item"><a class="footer__link-item" href="/hackathon/physical-ai-textbook/hardware-infrastructure">Hardware &amp; Infrastructure</a></li><li class="footer__item"><a class="footer__link-item" href="/hackathon/physical-ai-textbook/ros2-fundamentals">ROS 2 Fundamentals</a></li><li class="footer__item"><a class="footer__link-item" href="/hackathon/physical-ai-textbook/digital-twin-simulation">Digital Twin Simulation</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Advanced Topics</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/hackathon/physical-ai-textbook/nvidia-isaac">NVIDIA Isaac Platform</a></li><li class="footer__item"><a class="footer__link-item" href="/hackathon/physical-ai-textbook/vision-language-action">Vision-Language-Action</a></li><li class="footer__item"><a class="footer__link-item" href="/hackathon/physical-ai-textbook/humanoid-robotics">Humanoid Robotics</a></li><li class="footer__item"><a class="footer__link-item" href="/hackathon/physical-ai-textbook/appendices/glossary">Appendices</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Resources</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://panaversity.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">Panaversity<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/Nabeerak/hackathon" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Repository<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://docs.ros.org/en/humble/" target="_blank" rel="noopener noreferrer" class="footer__link-item">ROS 2 Documentation<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://docs.omniverse.nvidia.com/isaacsim/" target="_blank" rel="noopener noreferrer" class="footer__link-item">NVIDIA Isaac Sim<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Panaversity. All rights reserved.</div></div></div></footer><button class="chatbotToggle_q_d6" aria-label="Toggle chatbot">💬</button></div>
+</body>
+</html>
