@@ -239,8 +239,16 @@ table td {
   color: #000000; /* Black text for light mode */
 }
 
+[data-theme='light'] .footer__link-item {
+  color: #1a1a1a !important; /* Dark text for links in light mode */
+}
+
 [data-theme='dark'] .footer {
   background-color: var(--ifm-background-surface-color);
+}
+
+[data-theme='dark'] .footer__link-item {
+  color: #e0e0e0 !important; /* Light text for links in dark mode */
 }
 
 .footer__title {
@@ -257,8 +265,8 @@ table td {
 
 .footer__link-item {
   font-size: 0.9rem;
-  opacity: 0.8;
-  transition: opacity 0.2s;
+  opacity: 0.9;
+  transition: opacity 0.2s, color 0.2s;
 }
 
 .footer__link-item:hover {
