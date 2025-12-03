@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+
 /**
  * Custom CSS for Physical AI & Humanoid Robotics Textbook
  * Optimized for book-like reading experience
@@ -5,19 +7,19 @@
 
 /* Color palette - Professional blue theme for technical book */
 :root {
-  --ifm-color-primary: #1976d2;
-  --ifm-color-primary-dark: #1565c0;
-  --ifm-color-primary-darker: #0d47a1;
-  --ifm-color-primary-darkest: #0a3d91;
-  --ifm-color-primary-light: #42a5f5;
-  --ifm-color-primary-lighter: #64b5f6;
-  --ifm-color-primary-lightest: #90caf9;
+  --ifm-color-primary: #1A237E; /* Deep Dark Blue */
+  --ifm-color-primary-dark: #151C6C;
+  --ifm-color-primary-darker: #0F165A;
+  --ifm-color-primary-darkest: #0A1148;
+  --ifm-color-primary-light: #4D549B;
+  --ifm-color-primary-lighter: #6A71B8;
+  --ifm-color-primary-lightest: #8B90D4;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
   /* Book typography */
-  --ifm-font-family-base: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --ifm-font-family-base: 'Share Tech', sans-serif;
+  --ifm-font-family-monospace: 'Share Tech Mono', 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
   --ifm-line-height-base: 1.7;
   --ifm-leading-desktop: 1.7;
 
@@ -28,16 +30,19 @@
 
 /* Dark mode - Warmer, easier on eyes */
 [data-theme='dark'] {
-  --ifm-color-primary: #64b5f6;
-  --ifm-color-primary-dark: #42a5f5;
-  --ifm-color-primary-darker: #2196f3;
-  --ifm-color-primary-darkest: #1976d2;
-  --ifm-color-primary-light: #90caf9;
-  --ifm-color-primary-lighter: #bbdefb;
-  --ifm-color-primary-lightest: #e3f2fd;
-  --docusaurus-highlighted-code-line-bg: rgba(105, 105, 105, 0.3);
-  --ifm-background-color: #1a1a1a;
-  --ifm-background-surface-color: #242424;
+  --ifm-color-primary: #D81B60; /* Magenta */
+  --ifm-color-primary-dark: #C2185B;
+  --ifm-color-primary-darker: #AD1457;
+  --ifm-color-primary-darkest: #9C104F;
+  --ifm-color-primary-light: #E94C89;
+  --ifm-color-primary-lighter: #F06292;
+  --ifm-color-primary-lightest: #F48FB1;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+  --ifm-background-color: #000000; /* Black background */
+  --ifm-background-surface-color: #1A1A1A; /* Darker grey for surfaces */
+  --ifm-font-color-base: #E0E0E0; /* Light grey text */
+  --ifm-code-color: #FFC107; /* Amber for code */
+  --ifm-footer-background-color: #000000;
 }
 
 /* Typography enhancements for book readability */
@@ -211,6 +216,10 @@ table td {
 .navbar__title {
   font-weight: 600;
   font-size: 1.125rem;
+  background: linear-gradient(90deg, #C2185B 0%, #1565C0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Search - more prominent */

@@ -16,7 +16,7 @@ const sidebars: SidebarsConfig = {
     physicalAiTextbook: [
       {
         type: 'doc',
-        id: 'physical-ai-textbook/index',
+        id: 'index',
         label: 'Introduction'
       },
       {
@@ -26,17 +26,17 @@ const sidebars: SidebarsConfig = {
         items: [
           {
             type: 'doc',
-            id: 'physical-ai-textbook/course-overview/learning-outcomes',
+            id: 'course-overview/learning-outcomes',
             label: 'Learning Outcomes'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/course-overview/weekly-breakdown',
+            id: 'course-overview/weekly-breakdown',
             label: 'Weekly Breakdown'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/course-overview/prerequisites',
+            id: 'course-overview/prerequisites',
             label: 'Prerequisites'
           }
         ]
@@ -48,27 +48,27 @@ const sidebars: SidebarsConfig = {
         items: [
           {
             type: 'doc',
-            id: 'physical-ai-textbook/hardware-infrastructure/index',
+            id: 'hardware-infrastructure/index',
             label: 'Overview'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/hardware-infrastructure/digital-twin-workstation',
+            id: 'hardware-infrastructure/digital-twin-workstation',
             label: 'Digital Twin Workstation'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/hardware-infrastructure/physical-ai-edge-kits',
+            id: 'hardware-infrastructure/physical-ai-edge-kits',
             label: 'Physical AI Edge Kits'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/hardware-infrastructure/robot-lab-options',
+            id: 'hardware-infrastructure/robot-lab-options',
             label: 'Robot Lab Options'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/hardware-infrastructure/cloud-native-alternatives',
+            id: 'hardware-infrastructure/cloud-native-alternatives',
             label: 'Cloud-Native Alternatives'
           }
         ]
@@ -80,37 +80,37 @@ const sidebars: SidebarsConfig = {
         items: [
           {
             type: 'doc',
-            id: 'physical-ai-textbook/ros2-fundamentals/index',
+            id: 'ros2-fundamentals/index',
             label: 'Introduction'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/ros2-fundamentals/installation',
+            id: 'ros2-fundamentals/installation',
             label: 'Installation & Setup'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/ros2-fundamentals/nodes-topics',
+            id: 'ros2-fundamentals/nodes-topics',
             label: 'Nodes and Topics'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/ros2-fundamentals/services-actions',
+            id: 'ros2-fundamentals/services-actions',
             label: 'Services and Actions'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/ros2-fundamentals/parameters-launch',
+            id: 'ros2-fundamentals/parameters-launch',
             label: 'Parameters and Launch Files'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/ros2-fundamentals/navigation-stack',
+            id: 'ros2-fundamentals/navigation-stack',
             label: 'Navigation Stack'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/ros2-fundamentals/debugging-tools',
+            id: 'ros2-fundamentals/debugging-tools',
             label: 'Debugging Tools'
           }
         ]
@@ -122,32 +122,32 @@ const sidebars: SidebarsConfig = {
         items: [
           {
             type: 'doc',
-            id: 'physical-ai-textbook/digital-twin-simulation/index',
+            id: 'digital-twin-simulation/index',
             label: 'Introduction'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/digital-twin-simulation/gazebo-basics',
+            id: 'digital-twin-simulation/gazebo-basics',
             label: 'Gazebo Basics'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/digital-twin-simulation/unity-simulation',
+            id: 'digital-twin-simulation/unity-simulation',
             label: 'Unity Simulation'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/digital-twin-simulation/urdf-modeling',
+            id: 'digital-twin-simulation/urdf-modeling',
             label: 'URDF Robot Modeling'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/digital-twin-simulation/sensor-integration',
+            id: 'digital-twin-simulation/sensor-integration',
             label: 'Sensor Integration'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/digital-twin-simulation/physics-simulation',
+            id: 'digital-twin-simulation/physics-simulation',
             label: 'Physics Simulation'
           }
         ]
@@ -159,37 +159,37 @@ const sidebars: SidebarsConfig = {
         items: [
           {
             type: 'doc',
-            id: 'physical-ai-textbook/nvidia-isaac/index',
+            id: 'nvidia-isaac/index',
             label: 'Introduction'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/nvidia-isaac/isaac-sim-intro',
+            id: 'nvidia-isaac/isaac-sim-intro',
             label: 'Isaac Sim Overview'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/nvidia-isaac/omniverse-setup',
+            id: 'nvidia-isaac/omniverse-setup',
             label: 'Omniverse Setup'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/nvidia-isaac/robot-brain-ai',
+            id: 'nvidia-isaac/robot-brain-ai',
             label: 'Robot Brain AI'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/nvidia-isaac/perception-systems',
+            id: 'nvidia-isaac/perception-systems',
             label: 'Perception Systems'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/nvidia-isaac/slam-navigation',
+            id: 'nvidia-isaac/slam-navigation',
             label: 'SLAM and Navigation'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/nvidia-isaac/sim-to-real-transfer',
+            id: 'nvidia-isaac/sim-to-real-transfer',
             label: 'Sim-to-Real Transfer'
           }
         ]
@@ -201,32 +201,32 @@ const sidebars: SidebarsConfig = {
         items: [
           {
             type: 'doc',
-            id: 'physical-ai-textbook/vision-language-action/index',
+            id: 'vision-language-action/index',
             label: 'Introduction'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/vision-language-action/vla-overview',
+            id: 'vision-language-action/vla-overview',
             label: 'VLA Model Architecture'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/vision-language-action/multimodal-models',
+            id: 'vision-language-action/multimodal-models',
             label: 'Multimodal Foundation Models'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/vision-language-action/action-primitives',
+            id: 'vision-language-action/action-primitives',
             label: 'Action Primitives'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/vision-language-action/integration-patterns',
+            id: 'vision-language-action/integration-patterns',
             label: 'Integration with Robots'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/vision-language-action/training-fine-tuning',
+            id: 'vision-language-action/training-fine-tuning',
             label: 'Training and Fine-Tuning'
           }
         ]
@@ -238,38 +238,65 @@ const sidebars: SidebarsConfig = {
         items: [
           {
             type: 'doc',
-            id: 'physical-ai-textbook/humanoid-robotics/index',
+            id: 'humanoid-robotics/index',
             label: 'Introduction'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/humanoid-robotics/bipedal-locomotion',
+            id: 'humanoid-robotics/bipedal-locomotion',
             label: 'Bipedal Locomotion'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/humanoid-robotics/manipulation-control',
+            id: 'humanoid-robotics/manipulation-control',
             label: 'Manipulation and Control'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/humanoid-robotics/balance-stability',
+            id: 'humanoid-robotics/balance-stability',
             label: 'Balance and Stability'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/humanoid-robotics/conversational-robotics',
+            id: 'humanoid-robotics/conversational-robotics',
             label: 'Conversational Robotics'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/humanoid-robotics/gpt-integration',
+            id: 'humanoid-robotics/gpt-integration',
             label: 'GPT Integration'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/humanoid-robotics/hri-design',
+            id: 'humanoid-robotics/hri-design',
             label: 'Human-Robot Interaction Design'
+          }
+        ]
+      },
+      {
+        type: 'category',
+        label: 'AI Integration',
+        collapsed: true,
+        items: [
+          {
+            type: 'doc',
+            id: 'ai-integration/reusable-intelligence',
+            label: 'Reusable Intelligence'
+          },
+          {
+            type: 'doc',
+            id: 'ai-integration/rag-chatbot-integration',
+            label: 'RAG Chatbot Integration'
+          },
+          {
+            type: 'doc',
+            id: 'ai-integration/multilingual-support',
+            label: 'Multilingual Support'
+          },
+          {
+            type: 'doc',
+            id: 'ai-integration/authentication-personalization',
+            label: 'Authentication & Personalization'
           }
         ]
       },
@@ -280,17 +307,17 @@ const sidebars: SidebarsConfig = {
         items: [
           {
             type: 'doc',
-            id: 'physical-ai-textbook/appendices/glossary',
+            id: 'appendices/glossary',
             label: 'Glossary'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/appendices/resources',
+            id: 'appendices/resources',
             label: 'Additional Resources'
           },
           {
             type: 'doc',
-            id: 'physical-ai-textbook/appendices/troubleshooting',
+            id: 'appendices/troubleshooting',
             label: 'Troubleshooting Guide'
           }
         ]

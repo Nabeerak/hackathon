@@ -41,7 +41,7 @@ const config: Config = {
       'classic',
       {
         docs: {
-          routeBasePath: '/', // Serve docs at the site's root
+          routeBasePath: '/physical-ai-textbook', // Serve docs at the site's root
           sidebarPath: './sidebars.ts',
           editUrl:
             'https://github.com/Nabeerak/hackathon/tree/main/docusaurus-book/',
@@ -97,17 +97,10 @@ const config: Config = {
       logo: {
         alt: 'Physical AI Textbook',
         src: 'img/logo.svg',
-        href: '/physical-ai-textbook',
         width: 32,
         height: 32,
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'physicalAiTextbook',
-          position: 'left',
-          label: 'Read the Book',
-        },
         {
           type: 'search',
           position: 'right',

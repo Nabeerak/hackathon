@@ -6,8 +6,8 @@ from datetime import datetime
 from typing import List, Optional
 import html
 
-from backend.src.database import get_db
-from backend.src.models.models import Conversation, Message, User
+from src.database import get_db
+from src.models.models import Conversation, Message, User
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)

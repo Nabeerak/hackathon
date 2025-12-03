@@ -12,7 +12,11 @@
       "Bash(.specify/scripts/bash/create-phr.sh:*)",
       "Bash(.venvScriptsactivate:*)",
       "Bash(alembic revision:*)",
-      "Bash(bash:*)"
+      "Bash(bash:*)",
+      "Bash(taskkill:*)",
+      "Bash(if exist .docusaurus rmdir /s /q .docusaurus)",
+      "Bash(if exist node_modules.cache rmdir /s /q node_modules.cache)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

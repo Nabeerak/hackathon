@@ -1,0 +1,49 @@
+import React from 'react';
+import clsx from 'clsx';
+import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Layout from '@theme/Layout';
+import Heading from '@theme/Heading';
+
+import styles from './index.module.css';
+
+function HomepageHeader() {
+  const {siteConfig} = useDocusaurusContext();
+  return (
+    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+      <div className="container">
+        <div className={styles.heroContent}>
+          <div className={styles.heroText}>
+            <Heading as="h1" className={styles.heroTitle}>
+              {siteConfig.title}
+            </Heading>
+            <p className={styles.heroSubtitle}>
+              {siteConfig.tagline}
+            </p>
+            <div className={styles.buttons}>
+              <Link
+                className={clsx('button button--secondary button--lg', styles.heroButton)}
+                to="/physical-ai-textbook">
+                Start Reading the Book
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export default function Home(): JSX.Element {
+  const {siteConfig} = useDocusaurusContext();
+  return (
+    <Layout
+      title={`Home`}
+      description="Comprehensive textbook on Physical AI & Humanoid Robotics covering ROS 2, NVIDIA Isaac, Vision-Language-Action models, and more">
+      <HomepageHeader />
+      <main>
+        {/* Potentially add a short introduction or featured chapters here later */}
+      </main>
+    </Layout>
+  );
+}

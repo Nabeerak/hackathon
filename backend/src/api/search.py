@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from typing import List
 import html
 
-from backend.src.services.search_service import SearchService
+from src.services.search_service import SearchService
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)

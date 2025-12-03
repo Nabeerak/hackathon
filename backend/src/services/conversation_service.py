@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from typing import List, Optional
 
-from backend.src.models.models import Conversation, Message, User
+from src.models.models import Conversation, Message, User
 
 class ConversationService:
     def __init__(self, db: Session):

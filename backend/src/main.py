@@ -4,14 +4,14 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
-from api import chat
-from api import conversations
-from api import search
-from database import engine
-from models import models
+from src.api import chat
+from src.api import conversations
+from src.api import search
+from src.database import engine
+from src.models import models
 
-# Create database tables
-models.Base.metadata.create_all(bind=engine)
+# Create database tables (commented out - tables already exist)
+# models.Base.metadata.create_all(bind=engine)
 
 # Initialize rate limiter
 limiter = Limiter(key_func=get_remote_address, default_limits=["30/minute"])

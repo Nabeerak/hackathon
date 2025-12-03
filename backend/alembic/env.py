@@ -44,7 +44,14 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = os.getenv("NEON_DATABASE_URL")
+    # Constitution requires Neon, but fallback to DATABASE_URL for local dev
+    url = os.getenv("NEON_DATABASE_URL") or os.getenv("DATABASE_URL")
+
+    if not url:
+        raise ValueError(
+            "No database URL found! Set NEON_DATABASE_URL or DATABASE_URL in .env"
+        )
+
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -63,7 +70,15 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
-    connectable = create_engine(os.getenv("NEON_DATABASE_URL"))
+    # Constitution requires Neon, but fallback to DATABASE_URL for local dev
+    url = os.getenv("NEON_DATABASE_URL") or os.getenv("DATABASE_URL")
+
+    if not url:
+        raise ValueError(
+            "No database URL found! Set NEON_DATABASE_URL or DATABASE_URL in .env"
+        )
+
+    connectable = create_engine(url)
 
     with connectable.connect() as connection:
         context.configure(

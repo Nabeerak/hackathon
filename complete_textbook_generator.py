@@ -6,7 +6,7 @@ This creates comprehensive but concise content for rapid deployment
 
 import os
 
-BASE_DIR = "docusaurus-book/docs/physical-ai-textbook"
+BASE_DIR = "docusaurus-book/docs"
 
 # ALL REMAINING CONTENT
 ALL_PAGES = {

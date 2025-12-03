@@ -36,7 +36,7 @@ class ChatRequest(BaseModel):
         v = html.escape(v)
         return v
 
-    @field_validator('selected_text', pre=True)
+    @field_validator('selected_text', mode='before')
     def validate_selected_text(cls, v):
         if v is not None:
             if len(v) > 2000:  # Max length check
@@ -57,12 +57,12 @@ class ChatResponse(BaseModel):
 @limiter.limit("30/minute")
 async def chat_endpoint(
     request_data: ChatRequest,
-    req: Request,
+    request: Request,
     db: Session = Depends(get_db)
 ):
     """Send a message to the chatbot and get a response."""
     start_time = time.time()
-    client_ip = req.client.host if req.client else "unknown"
+    client_ip = request.client.host if request.client else "unknown"
 
     logger.info(f"Chat request from {client_ip} for conversation {request_data.conversation_id}")
 

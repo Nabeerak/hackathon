@@ -1,6 +1,6 @@
 from typing import List, Tuple
-from backend.src.services.qdrant_service import QdrantService
-from backend.src.services.openai_service import OpenAIService
+from src.services.qdrant_service import QdrantService
+from src.services.openai_service import OpenAIService
 
 class SearchService:
     def __init__(self):
