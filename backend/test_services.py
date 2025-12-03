@@ -21,14 +21,14 @@ print("=" * 50)
 try:
     from src.database import engine, SessionLocal
     with engine.connect() as conn:
-        print("✓ Database connection successful")
+        print("[OK] Database connection successful")
 
     # Test session
     db = SessionLocal()
     db.close()
-    print("✓ Database session creation successful")
+    print("[OK] Database session creation successful")
 except Exception as e:
-    print(f"✗ Database connection failed: {e}")
+    print(f"[ERROR] Database connection failed: {e}")
 
 # Test 3: OpenAI Service
 print("\n" + "=" * 50)
@@ -37,14 +37,14 @@ print("=" * 50)
 try:
     from src.services.openai_service import OpenAIService
     openai_service = OpenAIService()
-    print("✓ OpenAI service initialized")
+    print("[OK] OpenAI service initialized")
 
     # Test embedding
     test_text = "Hello world"
     embedding = openai_service.create_embedding(test_text)
-    print(f"✓ Embedding created (dimension: {len(embedding)})")
+    print(f"[OK] Embedding created (dimension: {len(embedding)})")
 except Exception as e:
-    print(f"✗ OpenAI service failed: {e}")
+    print(f"[ERROR] OpenAI service failed: {e}")
 
 # Test 4: Qdrant Service
 print("\n" + "=" * 50)

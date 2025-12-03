@@ -61,17 +61,18 @@ const config: Config = {
   ],
 
   themes: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        hashed: true,
-        language: ["en"],
-        indexDocs: true,
-        indexBlog: false,
-        indexPages: true,
-        docsRouteBasePath: '/',
-      },
-    ],
+    // Search disabled - users can use the chatbot instead
+    // [
+    //   require.resolve("@easyops-cn/docusaurus-search-local"),
+    //   {
+    //     hashed: true,
+    //     language: ["en"],
+    //     indexDocs: true,
+    //     indexBlog: false,
+    //     indexPages: true,
+    //     docsRouteBasePath: '/',
+    //   },
+    // ],
   ],
 
   themeConfig: {
