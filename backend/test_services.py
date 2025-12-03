@@ -53,7 +53,7 @@ print("=" * 50)
 try:
     from src.services.qdrant_service import QdrantService
     qdrant_service = QdrantService()
-    print("✓ Qdrant service initialized")
+    print("[OK] Qdrant service initialized")
 
     # Check collection
     collection_name = "book_content"
@@ -61,7 +61,7 @@ try:
     collection_names = [c.name for c in collections.collections]
 
     if collection_name in collection_names:
-        print(f"✓ Collection '{collection_name}' exists")
+        print(f"[OK] Collection '{collection_name}' exists")
 
         # Get collection info
         collection_info = qdrant_service.client.get_collection(collection_name)
@@ -69,14 +69,14 @@ try:
         print(f"  - Points count: {collection_info.points_count}")
 
         if collection_info.points_count == 0:
-            print("  ⚠ WARNING: Collection is empty! No documents have been ingested.")
+            print("  [WARNING] Collection is empty! No documents have been ingested.")
     else:
-        print(f"⚠ WARNING: Collection '{collection_name}' does not exist")
+        print(f"[WARNING] Collection '{collection_name}' does not exist")
         print("  Creating collection...")
         qdrant_service.ensure_collection_exists(collection_name)
-        print(f"✓ Collection '{collection_name}' created (but empty)")
+        print(f"[OK] Collection '{collection_name}' created (but empty)")
 except Exception as e:
-    print(f"✗ Qdrant service failed: {e}")
+    print(f"[ERROR] Qdrant service failed: {e}")
 
 # Test 5: Chat Service
 print("\n" + "=" * 50)
@@ -85,9 +85,9 @@ print("=" * 50)
 try:
     from src.services.chat_service import ChatService
     chat_service = ChatService()
-    print("✓ Chat service initialized")
+    print("[OK] Chat service initialized")
 except Exception as e:
-    print(f"✗ Chat service failed: {e}")
+    print(f"[ERROR] Chat service failed: {e}")
 
 # Test 6: Database Tables
 print("\n" + "=" * 50)
@@ -104,17 +104,17 @@ try:
     conv_count = db.query(Conversation).count()
     msg_count = db.query(Message).count()
 
-    print(f"✓ Users table: {user_count} records")
-    print(f"✓ Conversations table: {conv_count} records")
-    print(f"✓ Messages table: {msg_count} records")
+    print(f"[OK] Users table: {user_count} records")
+    print(f"[OK] Conversations table: {conv_count} records")
+    print(f"[OK] Messages table: {msg_count} records")
 
     db.close()
 except Exception as e:
-    print(f"✗ Database tables check failed: {e}")
+    print(f"[ERROR] Database tables check failed: {e}")
 
 print("\n" + "=" * 50)
 print("Summary")
 print("=" * 50)
-print("If all tests passed with ✓, your backend is ready!")
-print("If there are warnings (⚠), check the specific issues above.")
-print("If there are errors (✗), fix them before starting the server.")
+print("If all tests passed with [OK], your backend is ready!")
+print("If there are [WARNING], check the specific issues above.")
+print("If there are [ERROR], fix them before starting the server.")

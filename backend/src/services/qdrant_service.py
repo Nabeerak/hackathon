@@ -65,10 +65,13 @@ class QdrantService:
             List of search results with id, score, and payload
         """
         try:
-            search_result = self.client.search(
+            from qdrant_client.models import SearchRequest
+
+            search_result = self.client.query_points(
                 collection_name=collection_name,
-                query_vector=query_vector,
-                limit=limit
+                query=query_vector,
+                limit=limit,
+                with_payload=True
             )
 
             return [
@@ -77,7 +80,7 @@ class QdrantService:
                     "score": hit.score,
                     "payload": hit.payload
                 }
-                for hit in search_result
+                for hit in search_result.points
             ]
         except Exception as e:
             print(f"Error searching Qdrant: {e}")
