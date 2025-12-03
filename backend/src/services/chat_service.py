@@ -21,32 +21,18 @@ class ChatService:
         Returns:
             True if the question is on-topic, False otherwise
         """
-        guardrail_prompt = [
-            {
-                "role": "system",
-                "content": (
-                    "You are a content guardrail for a chatbot about a book on 'Physical AI & Humanoid Robotics'. "
-                    "Your job is to determine if a user's question is related to this book's topics, which include: "
-                    "physical AI, humanoid robots, robotics, artificial intelligence, machine learning in robotics, "
-                    "robot hardware, robot software, sensors, actuators, computer vision for robots, "
-                    "robot control systems, and related technical topics. "
-                    "\n\nRespond with ONLY 'YES' if the question is related to these topics, or 'NO' if it's off-topic. "
-                    "Do not provide any explanation."
-                )
-            },
-            {
-                "role": "user",
-                "content": f"Is this question related to the book topics? Question: {question}"
-            }
-        ]
+        # For now, be very permissive - only block clearly off-topic questions
+        # Common off-topic patterns
+        off_topic_keywords = ['weather', 'sports', 'politics', 'cooking', 'movie', 'music', 'game']
+        question_lower = question.lower()
 
-        try:
-            response = self.openai_service.chat_completion(guardrail_prompt, temperature=0, max_tokens=5)
-            return response.strip().upper() == "YES"
-        except Exception as e:
-            print(f"Error in guardrail check: {e}")
-            # Default to allowing the question if guardrail fails
-            return True
+        # Block only if clearly off-topic
+        for keyword in off_topic_keywords:
+            if keyword in question_lower and not any(tech in question_lower for tech in ['robot', 'ai', 'sensor', 'actuator']):
+                return False
+
+        # Allow everything else (including ambiguous questions)
+        return True
 
     def retrieve_context(
         self,
