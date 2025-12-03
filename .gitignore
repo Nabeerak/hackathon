@@ -66,5 +66,10 @@ venv/
 dist/
 *.egg-info/
 
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
 # Problematic files
 nul

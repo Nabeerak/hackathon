@@ -13,7 +13,7 @@ interface Message {
 export const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
-  const [conversationId, setConversationId] = useState<string | undefined>(undefined);
+  const [conversationId, setConversationId] = useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -101,7 +101,7 @@ export const Chatbot: React.FC = () => {
     setSelectedText('');
   };
 
-  const handleConversationSelect = (selectedConvId: string) => {
+  const handleConversationSelect = (selectedConvId: number) => {
     // If selecting a conversation, we might want to load its messages
     // For now, just set the conversation ID to connect to that conversation
     setConversationId(selectedConvId);

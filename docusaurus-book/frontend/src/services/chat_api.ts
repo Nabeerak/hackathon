@@ -1,17 +1,19 @@
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
 export interface ChatRequest {
-  conversation_id?: string;
+  conversation_id?: number;
   message: string;
   selected_text?: string;
+  user_id?: number;
 }
 
 export interface ChatResponse {
   message: string;
-  conversation_id: string;
+  conversation_id: number;
   sources: string[];
   timestamp: string;
   processing_time: number;
+  off_topic?: boolean;
   metadata?: {
     processing_time?: number;
     sources_count?: number;
