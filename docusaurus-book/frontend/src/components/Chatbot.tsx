@@ -19,6 +19,7 @@ export const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedText, setSelectedText] = useState<string>('');
   const [showHistory, setShowHistory] = useState(false);
+  const [selectionPosition, setSelectionPosition] = useState<{ x: number; y: number } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -31,19 +32,34 @@ export const Chatbot: React.FC = () => {
 
   // Add text selection listener to the whole document
   useEffect(() => {
-    const handleSelection = () => {
-      const selectedText = window.getSelection()?.toString().trim() || '';
-      if (selectedText) {
+    const handleSelection = (e: MouseEvent | KeyboardEvent) => {
+      const selection = window.getSelection();
+      const selectedText = selection?.toString().trim() || '';
+
+      if (selectedText && selection && selection.rangeCount > 0) {
         setSelectedText(selectedText);
+
+        // Get the position of the selection
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+
+        // Position the button at the end of the selection
+        setSelectionPosition({
+          x: rect.right + window.scrollX,
+          y: rect.bottom + window.scrollY
+        });
+      } else {
+        setSelectedText('');
+        setSelectionPosition(null);
       }
     };
 
-    document.addEventListener('mouseup', handleSelection);
-    document.addEventListener('keyup', handleSelection);
+    document.addEventListener('mouseup', handleSelection as EventListener);
+    document.addEventListener('keyup', handleSelection as EventListener);
 
     return () => {
-      document.removeEventListener('mouseup', handleSelection);
-      document.removeEventListener('keyup', handleSelection);
+      document.removeEventListener('mouseup', handleSelection as EventListener);
+      document.removeEventListener('keyup', handleSelection as EventListener);
     };
   }, []);
 
@@ -80,6 +96,7 @@ export const Chatbot: React.FC = () => {
       setMessages((prev) => [...prev, assistantMessage]);
       // Clear selected text after sending message
       setSelectedText('');
+      setSelectionPosition(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send message');
     } finally {
@@ -99,6 +116,7 @@ export const Chatbot: React.FC = () => {
     setMessages([]);
     setError(null);
     setSelectedText('');
+    setSelectionPosition(null);
   };
 
   const handleConversationSelect = (selectedConvId: number) => {
@@ -116,6 +134,17 @@ export const Chatbot: React.FC = () => {
     setInput(`Explain this: "${selectedText.substring(0, 200)}${selectedText.length > 200 ? '...' : ''}"`);
     // Clear the selection after pre-filling the input
     setSelectedText('');
+    setSelectionPosition(null);
+  };
+
+  // Function to open chatbot with selected text
+  const handleAskInChat = () => {
+    if (!selectedText.trim()) return;
+
+    // Open the chatbot if it's not already open
+    setIsOpen(true);
+    // Keep the selected text so it gets included in the context
+    // User can then type their question
   };
 
   return (
@@ -127,6 +156,21 @@ export const Chatbot: React.FC = () => {
       >
         💬
       </button>
+
+      {/* Ask in Chat button at selection position */}
+      {selectedText && selectionPosition && (
+        <button
+          className="ask-in-chat-btn"
+          style={{
+            position: 'absolute',
+            left: `${selectionPosition.x}px`,
+            top: `${selectionPosition.y + 5}px`,
+          }}
+          onClick={handleAskInChat}
+        >
+          Ask in Chat
+        </button>
+      )}
 
       {/* Display selected text indicator when text is selected */}
       {selectedText && (
@@ -162,17 +206,27 @@ export const Chatbot: React.FC = () => {
             </div>
           ) : (
             <div className="chatbot-messages">
-              {messages.length === 0 && (
+              {messages.length === 0 && !selectedText && (
                 <div className="chatbot-welcome">
                   <p>Welcome! Ask me anything about the Physical AI textbook.</p>
-                  {selectedText && (
-                    <div className="selected-text-notification">
-                      <p><strong>Text Selected:</strong> "{selectedText.substring(0, 100)}{selectedText.length > 100 ? '...' : ''}"</p>
-                      <button onClick={handleAskAboutSelection} className="ask-about-selection-btn-small">
-                        Ask about this selection
-                      </button>
-                    </div>
-                  )}
+                </div>
+              )}
+
+              {/* Show selected text card when text is selected */}
+              {selectedText && (
+                <div className="selected-text-card">
+                  <div className="selected-text-header">
+                    <span className="selected-text-label">📄 Selected Text</span>
+                    <button onClick={() => { setSelectedText(''); setSelectionPosition(null); }} className="close-selected-text">×</button>
+                  </div>
+                  <div className="selected-text-content">
+                    "{selectedText}"
+                  </div>
+                  <div className="selected-text-actions">
+                    <button onClick={handleAskAboutSelection} className="btn-ask-about">
+                      Ask about this text
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -209,12 +263,6 @@ export const Chatbot: React.FC = () => {
 
           {!showHistory && (
             <div className="chatbot-input-container">
-              {selectedText && (
-                <div className="selected-text-prompt">
-                  <span>Using selected text: "{selectedText.substring(0, 80)}{selectedText.length > 80 ? '...' : ''}"</span>
-                  <button onClick={() => setSelectedText('')} className="clear-selection-btn">Clear</button>
-                </div>
-              )}
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}

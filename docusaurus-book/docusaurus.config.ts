@@ -102,10 +102,6 @@ const config: Config = {
       },
       items: [
         {
-          type: 'search',
-          position: 'right',
-        },
-        {
           href: 'https://github.com/Nabeerak/hackathon',
           label: 'GitHub',
           position: 'right',
