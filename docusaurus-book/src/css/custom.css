@@ -212,7 +212,16 @@ table td {
   margin: 0 auto;
 }
 
-/* Navbar - Book title emphasis */
+/* Navbar - Book title emphasis and size */
+.navbar {
+  min-height: 70px;
+  padding: 0.75rem 1rem;
+}
+
+.navbar__inner {
+  max-width: 100%;
+}
+
 .navbar__title {
   font-weight: 600;
   font-size: 1.125rem;
@@ -222,11 +231,61 @@ table td {
   background-clip: text;
 }
 
-/* Search - more prominent */
+.navbar__item {
+  padding: 0.5rem 0.75rem;
+}
+
+.navbar__link {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.navbar__link:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* Search - more prominent and functional */
 .navbar__search-input {
-  width: 200px;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
+  width: 400px;
+  border-radius: 24px;
+  padding: 0.6rem 1.25rem;
+  border: 2px solid var(--ifm-color-emphasis-300);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: var(--ifm-background-surface-color);
+}
+
+.navbar__search-input:focus {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 3px rgba(194, 24, 91, 0.1);
+  outline: none;
+  width: 500px;
+}
+
+.navbar__search-input::placeholder {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.95rem;
+}
+
+.navbar__search {
+  padding: 0 1rem;
+  flex: 1;
+  max-width: 600px;
+}
+
+/* Search results styling */
+.searchResultItemPath {
+  color: var(--ifm-color-primary);
+  font-size: 0.875rem;
+}
+
+.searchResultItemTitle {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.searchResultItem:hover {
+  background-color: var(--ifm-color-emphasis-100);
 }
 
 /* Footer - book style */
@@ -320,6 +379,29 @@ table td {
   }
 
   .markdown {
+    max-width: 100%;
+  }
+
+  .navbar {
+    min-height: 60px;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .navbar__search-input {
+    width: 200px;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar__search-input:focus {
+    width: 250px;
+  }
+
+  .navbar__title {
+    font-size: 0.95rem;
+  }
+
+  .navbar__search {
     max-width: 100%;
   }
 }

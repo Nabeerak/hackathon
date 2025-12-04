@@ -3,11 +3,18 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 DATABASE_URL = os.getenv("NEON_DATABASE_URL")
 
 if not DATABASE_URL:
-    raise ValueError("NEON_DATABASE_URL environment variable not set")
+    raise ValueError(
+        "NEON_DATABASE_URL environment variable is not set! "
+        "Please ensure .env file exists with NEON_DATABASE_URL configured."
+    )
 
 # Use NullPool to avoid connection pooling issues with serverless databases
 engine = create_engine(

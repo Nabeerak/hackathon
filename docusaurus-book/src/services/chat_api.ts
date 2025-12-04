@@ -35,7 +35,9 @@ export class ChatAPI {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt_token') || ''}`, // Add JWT
       },
+      credentials: 'include', // Include cookies for authentication
       body: JSON.stringify(request),
     });
 

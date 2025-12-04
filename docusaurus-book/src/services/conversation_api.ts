@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL = (typeof process !== 'undefined' && process.env?.REACT_APP_API_URL) || '/api';
 
 export interface Conversation {
   id: string;
@@ -43,12 +43,13 @@ export class ConversationAPI {
     this.baseURL = baseURL;
   }
 
-  async getConversations(skip: number = 0, limit: number = 20): Promise<Conversation[]> {
-    const response = await fetch(`${this.baseURL}/conversations?skip=${skip}&limit=${limit}`, {
+  async getConversations(userId: number = 1, skip: number = 0, limit: number = 20): Promise<Conversation[]> {
+    const response = await fetch(`${this.baseURL}/conversations?user_id=${userId}&skip=${skip}&limit=${limit}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // Include cookies for authentication
     });
 
     if (!response.ok) {
@@ -58,12 +59,13 @@ export class ConversationAPI {
     return response.json();
   }
 
-  async getConversation(conversationId: string): Promise<ConversationDetail> {
-    const response = await fetch(`${this.baseURL}/conversations/${conversationId}`, {
+  async getConversation(conversationId: string, userId: number = 1): Promise<ConversationDetail> {
+    const response = await fetch(`${this.baseURL}/conversations/${conversationId}?user_id=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // Include cookies for authentication
     });
 
     if (!response.ok) {
@@ -73,12 +75,13 @@ export class ConversationAPI {
     return response.json();
   }
 
-  async createConversation(request: CreateConversationRequest): Promise<Conversation> {
-    const response = await fetch(`${this.baseURL}/conversations`, {
+  async createConversation(request: CreateConversationRequest, userId: number = 1): Promise<Conversation> {
+    const response = await fetch(`${this.baseURL}/conversations?user_id=${userId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // Include cookies for authentication
       body: JSON.stringify(request),
     });
 
@@ -89,12 +92,13 @@ export class ConversationAPI {
     return response.json();
   }
 
-  async deleteConversation(conversationId: string): Promise<void> {
-    const response = await fetch(`${this.baseURL}/conversations/${conversationId}`, {
+  async deleteConversation(conversationId: string, userId: number = 1): Promise<void> {
+    const response = await fetch(`${this.baseURL}/conversations/${conversationId}?user_id=${userId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // Include cookies for authentication
     });
 
     if (!response.ok) {
@@ -102,12 +106,13 @@ export class ConversationAPI {
     }
   }
 
-  async searchConversations(query: string): Promise<Conversation[]> {
-    const response = await fetch(`${this.baseURL}/conversations/search?query=${encodeURIComponent(query)}`, {
+  async searchConversations(query: string, userId: number = 1): Promise<Conversation[]> {
+    const response = await fetch(`${this.baseURL}/conversations/search?query=${encodeURIComponent(query)}&user_id=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // Include cookies for authentication
     });
 
     if (!response.ok) {
@@ -117,12 +122,13 @@ export class ConversationAPI {
     return response.json();
   }
 
-  async exportConversation(conversationId: string): Promise<ConversationExportData> {
-    const response = await fetch(`${this.baseURL}/conversations/${conversationId}/export`, {
+  async exportConversation(conversationId: string, userId: number = 1): Promise<ConversationExportData> {
+    const response = await fetch(`${this.baseURL}/conversations/${conversationId}/export?user_id=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // Include cookies for authentication
     });
 
     if (!response.ok) {
@@ -135,6 +141,7 @@ export class ConversationAPI {
   async downloadConversation(conversationId: string, filename: string): Promise<void> {
     const response = await fetch(`${this.baseURL}/conversations/${conversationId}/export`, {
       method: 'GET',
+      credentials: 'include', // Include cookies for authentication
     });
 
     if (!response.ok) {

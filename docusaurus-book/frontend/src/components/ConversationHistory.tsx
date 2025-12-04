@@ -3,8 +3,8 @@ import { conversationAPI, Conversation, ConversationDetail } from '../services/c
 import './ConversationHistory.css';
 
 interface ConversationHistoryProps {
-  onConversationSelect?: (conversationId: string) => void;
-  currentConversationId?: string;
+  onConversationSelect?: (conversationId: number | undefined) => void;
+  currentConversationId?: number;
 }
 
 export const ConversationHistory: React.FC<ConversationHistoryProps> = ({

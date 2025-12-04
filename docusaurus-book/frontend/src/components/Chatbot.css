@@ -12,6 +12,10 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease;
   z-index: 1000;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .chatbot-toggle:hover {
@@ -33,6 +37,10 @@
   flex-direction: column;
   z-index: 1000;
   overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 @media (max-width: 768px) {
@@ -241,8 +249,16 @@
   cursor: not-allowed;
 }
 
+.ask-in-chat-container {
+  z-index: 9999;
+  animation: slideIn 0.2s ease-out;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
 .ask-in-chat-btn {
-  position: absolute;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
@@ -252,10 +268,12 @@
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  z-index: 9999;
   white-space: nowrap;
   transition: all 0.2s ease;
-  animation: slideIn 0.2s ease-out;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .ask-in-chat-btn:hover {
@@ -266,6 +284,39 @@
 .ask-in-chat-btn:active {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+.close-selection-btn {
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.close-selection-btn:hover {
+  background: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.close-selection-btn:active {
+  transform: scale(0.95);
 }
 
 @keyframes slideIn {
@@ -292,6 +343,10 @@
   align-items: center;
   max-width: 300px;
   z-index: 999;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 @media (max-width: 480px) {

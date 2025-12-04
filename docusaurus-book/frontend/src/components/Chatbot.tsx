@@ -30,24 +30,44 @@ export const Chatbot: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
-  // Add text selection listener to the whole document
+  // Add text selection listener only to book content areas
   useEffect(() => {
     const handleSelection = (e: MouseEvent | KeyboardEvent) => {
       const selection = window.getSelection();
       const selectedText = selection?.toString().trim() || '';
 
       if (selectedText && selection && selection.rangeCount > 0) {
-        setSelectedText(selectedText);
-
-        // Get the position of the selection
+        // Check if the selection is within book content (not chatbot UI)
         const range = selection.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
+        const container = range.commonAncestorContainer;
+        const element = container.nodeType === Node.ELEMENT_NODE
+          ? container as Element
+          : container.parentElement;
 
-        // Position the button at the end of the selection
-        setSelectionPosition({
-          x: rect.right + window.scrollX,
-          y: rect.bottom + window.scrollY
-        });
+        // Only allow selection from book content areas
+        // Exclude chatbot UI and other non-content areas
+        const isInBookContent = element?.closest('article, .markdown, main') !== null;
+        const isInChatbot = element?.closest('.chatbot-container, .chatbot-toggle, .ask-in-chat-btn, .ask-in-chat-container, .close-selection-btn, .selected-text-indicator') !== null;
+        const isInNavbar = element?.closest('.navbar, nav') !== null;
+        const isInSidebar = element?.closest('.theme-doc-sidebar-container, aside') !== null;
+        const isInFooter = element?.closest('.footer, footer') !== null;
+
+        // Only set selected text if it's from book content and not from excluded areas
+        if (isInBookContent && !isInChatbot && !isInNavbar && !isInSidebar && !isInFooter) {
+          setSelectedText(selectedText);
+
+          // Get the position of the selection
+          const rect = range.getBoundingClientRect();
+
+          // Position the button at the end of the selection
+          setSelectionPosition({
+            x: rect.right + window.scrollX,
+            y: rect.bottom + window.scrollY
+          });
+        } else {
+          setSelectedText('');
+          setSelectionPosition(null);
+        }
       } else {
         setSelectedText('');
         setSelectionPosition(null);
@@ -88,7 +108,7 @@ export const Chatbot: React.FC = () => {
 
       const assistantMessage: Message = {
         role: 'assistant',
-        content: response.message,
+        content: typeof response.message === 'string' ? response.message : JSON.stringify(response.message, null, 2),
         sources: response.sources,
         timestamp: response.timestamp,
       };
@@ -159,17 +179,34 @@ export const Chatbot: React.FC = () => {
 
       {/* Ask in Chat button at selection position */}
       {selectedText && selectionPosition && (
-        <button
-          className="ask-in-chat-btn"
+        <div
+          className="ask-in-chat-container"
           style={{
             position: 'absolute',
             left: `${selectionPosition.x}px`,
             top: `${selectionPosition.y + 5}px`,
+            display: 'flex',
+            gap: '8px',
+            alignItems: 'center',
           }}
-          onClick={handleAskInChat}
         >
-          Ask in Chat
-        </button>
+          <button
+            className="ask-in-chat-btn"
+            onClick={handleAskInChat}
+          >
+            Ask in Chat
+          </button>
+          <button
+            className="close-selection-btn"
+            onClick={() => {
+              setSelectedText('');
+              setSelectionPosition(null);
+            }}
+            aria-label="Clear selection"
+          >
+            ×
+          </button>
+        </div>
       )}
 
       {/* Display selected text indicator when text is selected */}

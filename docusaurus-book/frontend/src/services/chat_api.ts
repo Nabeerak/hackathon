@@ -35,12 +35,16 @@ export class ChatAPI {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt_token') || ''}`, // Add JWT token
       },
+      credentials: 'include', // Include cookies for session authentication
       body: JSON.stringify(request),
     });
 
     if (!response.ok) {
-      if (response.status === 429) {
+      if (response.status === 401) {
+        throw new Error('Unauthorized. Please sign in to use the chat.');
+      } else if (response.status === 429) {
         throw new Error('Rate limit exceeded. Please try again later.');
       } else if (response.status === 400) {
         const errorData = await response.json();

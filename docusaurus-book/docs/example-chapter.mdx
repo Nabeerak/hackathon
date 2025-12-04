@@ -1,0 +1,84 @@
+---
+title: Example Chapter with Personalization
+sidebar_label: Example Chapter
+sidebar_position: 100
+description: Example chapter demonstrating personalized content
+---
+
+import PersonalizeButton from '@site/src/components/PersonalizeButton/PersonalizeButton';
+
+# Example Chapter with Personalization
+
+<PersonalizeButton chapterTitle="Example Chapter" />
+
+## Introduction
+
+This is an example chapter that demonstrates how personalization works in the Physical AI & Humanoid Robotics textbook.
+
+When you click the "Personalize Content" button above (after signing in), the content adapts to your:
+- **Experience Level**: Beginner, Intermediate, or Advanced
+- **Software Background**: Python, JavaScript, C++, ROS, etc.
+- **Hardware Background**: Arduino, Raspberry Pi, Electronics, etc.
+- **Learning Goals**: What you want to learn from this course
+
+## How Personalization Works
+
+### For Beginners
+If you're a beginner, we'll:
+- Provide more detailed explanations
+- Include fundamental concepts
+- Offer step-by-step tutorials
+- Link to prerequisite materials
+
+### For Intermediate Learners
+If you have some experience, we'll:
+- Skip basic concepts
+- Focus on practical applications
+- Provide more challenging exercises
+- Reference your existing knowledge
+
+### For Advanced Learners
+If you're advanced, we'll:
+- Focus on cutting-edge techniques
+- Provide in-depth technical details
+- Offer research papers and advanced topics
+- Challenge you with complex projects
+
+## Language Support
+
+If you've set your preferred language to Urdu (اردو) in your profile, you can translate this chapter content with a single click.
+
+## Example Code
+
+Here's an example that adapts based on your software background:
+
+```python
+# This example would be personalized based on your profile
+# For Python users: Standard Python syntax
+# For JavaScript users: Comments showing JS equivalents
+# For beginners: More detailed comments
+
+import rospy
+from std_msgs.msg import String
+
+def talker():
+    pub = rospy.Publisher('chatter', String, queue_size=10)
+    rospy.init_node('talker', anonymous=True)
+    rate = rospy.Rate(10) # 10hz
+    while not rospy.is_shutdown():
+        hello_str = "hello world %s" % rospy.get_time()
+        rospy.loginfo(hello_str)
+        pub.publish(hello_str)
+        rate.sleep()
+```
+
+## Try It Out!
+
+1. Click "Sign In" in the top navigation
+2. Create an account and fill out your background information
+3. Return to this page and click "Personalize Content"
+4. See how the content adapts to your profile!
+
+---
+
+**Note**: This is a demonstration chapter. The actual textbook chapters will be populated with comprehensive content about Physical AI, humanoid robotics, ROS 2, and embodied intelligence.

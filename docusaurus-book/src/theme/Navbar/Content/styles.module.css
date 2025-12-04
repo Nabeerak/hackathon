@@ -1,0 +1,43 @@
+.authButtons {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+  white-space: nowrap;
+}
+
+.signInButton {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #C2185B 0%, #1565C0 100%);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.signInButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(118, 75, 162, 0.4);
+}
+
+.profileLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.profileLink:hover {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-font-color-base);
+}
+
+.userIcon {
+  font-size: 1.2rem;
+}
