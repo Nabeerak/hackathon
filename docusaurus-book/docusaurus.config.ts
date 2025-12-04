@@ -60,42 +60,6 @@ const config: Config = {
     ],
   ],
 
-  themes: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        hashed: true,
-        language: ["en"],
-        indexDocs: true,
-        indexBlog: false,
-        indexPages: true,
-        docsRouteBasePath: '/physical-ai-textbook',
-        // Highlight search terms in results
-        highlightSearchTermsOnTargetPage: true,
-        // Search result limits
-        searchResultLimits: 8,
-        searchResultContextMaxLength: 50,
-        // Enable fuzzy search
-        explicitSearchResultPath: true,
-        // Index only h1-h3 headings for better results
-        ignoreFiles: [],
-        // Remove version prefix from search
-        removeDefaultStopWordFilter: false,
-        // Customize search placeholder
-        translations: {
-          search_placeholder: "Search in book...",
-          see_all_results: "See all results",
-          no_results: "No results found.",
-          search_results_for: "Search results for \"{{ keyword }}\"",
-          search_the_documentation: "Search the book",
-          count_documents_found: "{{ count }} document found",
-          count_documents_found_plural: "{{ count }} documents found",
-          no_documents_were_found: "No documents were found"
-        }
-      },
-    ],
-  ],
-
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
@@ -110,8 +74,9 @@ const config: Config = {
       maxHeadingLevel: 4,
     },
     colorMode: {
-      respectPrefersColorScheme: true,
       defaultMode: 'light',
+      disableSwitch: false,
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: 'Physical AI & Humanoid Robotics Textbook',
@@ -123,10 +88,6 @@ const config: Config = {
         height: 32,
       },
       items: [
-        {
-          type: 'search',
-          position: 'right',
-        },
         {
           href: 'https://github.com/Nabeerak/hackathon',
           label: 'GitHub',
