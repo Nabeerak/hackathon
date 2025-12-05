@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: hackathon-docusarus
+    env: static
+    rootDir: docusaurus-book
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: ./build
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
