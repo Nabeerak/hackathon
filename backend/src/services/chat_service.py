@@ -74,7 +74,8 @@ class ChatService:
         self,
         question: str,
         context_results: List[Dict[str, Any]],
-        conversation_history: List[Dict[str, str]] = None
+        conversation_history: List[Dict[str, str]] = None,
+        user_profile: Optional[Dict[str, Any]] = None
     ) -> str:
         """Generate a response using RAG
 
@@ -82,6 +83,7 @@ class ChatService:
             question: User's question
             context_results: Retrieved context from Qdrant
             conversation_history: Previous messages in the conversation
+            user_profile: Optional user profile for personalization
 
         Returns:
             Generated response
@@ -95,17 +97,33 @@ class ChatService:
 
         context_str = "\n\n".join(context_parts)
 
+        # Build system prompt with optional personalization
+        system_prompt = (
+            "You are a helpful AI assistant for the book 'Physical AI & Humanoid Robotics'. "
+            "Answer questions based ONLY on the provided context from the book. "
+            "If the context doesn't contain enough information to answer the question, "
+            "say so honestly. Do not make up information. "
+            "Be concise, accurate, and helpful."
+        )
+
+        # Add personalization if user profile is provided
+        if user_profile:
+            experience_level = user_profile.get("experience_level", "")
+            software_bg = user_profile.get("software_background", "")
+            hardware_bg = user_profile.get("hardware_background", "")
+
+            if experience_level:
+                system_prompt += f"\n\nUser's experience level: {experience_level}. Adjust your explanations accordingly."
+            if software_bg:
+                system_prompt += f"\nUser's software background: {software_bg}."
+            if hardware_bg:
+                system_prompt += f"\nUser's hardware background: {hardware_bg}."
+
         # Build messages for chat completion
         messages = [
             {
                 "role": "system",
-                "content": (
-                    "You are a helpful AI assistant for the book 'Physical AI & Humanoid Robotics'. "
-                    "Answer questions based ONLY on the provided context from the book. "
-                    "If the context doesn't contain enough information to answer the question, "
-                    "say so honestly. Do not make up information. "
-                    "Be concise, accurate, and helpful."
-                )
+                "content": system_prompt
             },
             {
                 "role": "system",
@@ -131,9 +149,16 @@ class ChatService:
         self,
         question: str,
         selected_text: Optional[str] = None,
-        conversation_history: List[Dict[str, str]] = None
+        conversation_history: List[Dict[str, str]] = None,
+        user_profile: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """Main chat method that combines guardrails, retrieval, and generation
+
+        Args:
+            question: User's question
+            selected_text: Optional text selected by user for context
+            conversation_history: Previous messages in the conversation
+            user_profile: Optional user profile for personalization
 
         Returns:
             Dict with response, sources, processing_time, and error info
@@ -167,7 +192,7 @@ class ChatService:
 
         # Generate response
         try:
-            response = self.generate_response(question, context_results, conversation_history)
+            response = self.generate_response(question, context_results, conversation_history, user_profile)
         except Exception as e:
             print(f"Error generating response: {e}")
             return {

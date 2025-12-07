@@ -28,12 +28,16 @@ yarn-error.log*
 .pnpm-debug.log*
 lerna-debug.log*
 
-# Local env files
+# Local env files (CRITICAL - DO NOT COMMIT!)
 .env
+.env.local
 .env*.local
 .env.development.local
 .env.test.local
 .env.production.local
+backend/.env
+backend/.env.local
+docusaurus-book/.env.local
 
 # Editor directories and files
 .vscode/*
@@ -61,10 +65,20 @@ Thumbs.db
 # Python-specific
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
 .venv/
 venv/
+env/
+ENV/
 dist/
 *.egg-info/
+.pytest_cache/
+.ruff_cache/
+*.cover
+.coverage
+htmlcov/
 
 # Database files
 *.db

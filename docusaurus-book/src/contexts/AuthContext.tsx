@@ -1,5 +1,5 @@
-import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
-import { authClient } from '../lib/auth-client';
+import React, { createContext, useContext, ReactNode, useState, useEffect, useMemo } from 'react';
+import { authClient, checkBackendHealth } from '../lib/auth-client';
 
 const { useSession, signIn, signUp, signOut } = authClient;
 
@@ -8,6 +8,8 @@ interface AuthContextType {
   session: any;
   isAuthenticated: boolean;
   isPending: boolean;
+  backendReady: boolean;
+  backendError: string | null;
   signIn: typeof signIn.email;
   signUp: typeof signUp.email;
   signOut: typeof signOut;
@@ -19,18 +21,44 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isClient, setIsClient] = useState(false);
+  const [backendReady, setBackendReady] = useState(false);
+  const [backendError, setBackendError] = useState<string | null>(null);
 
   // Always call hooks unconditionally
   const sessionResult = useSession();
   const sessionData = sessionResult?.data || null;
   const isPending = sessionResult?.isPending ?? true;
 
+  // Initialize backend on mount
   useEffect(() => {
     setIsClient(true);
+
+    // Check backend health
+    const initializeBackend = async () => {
+      if (typeof window === 'undefined') return;
+
+      try {
+        const data = await checkBackendHealth();
+
+        if (data.status === 'healthy' || data.status === 'degraded') {
+          setBackendReady(true);
+          setBackendError(null);
+          console.log('Backend initialized:', data);
+        } else {
+          setBackendError('Backend is not ready');
+        }
+      } catch (error) {
+        console.error('Backend initialization failed:', error);
+        setBackendError(error instanceof Error ? error.message : 'Backend connection failed');
+        setBackendReady(false);
+      }
+    };
+
+    initializeBackend();
   }, []);
 
-  const user = sessionData?.user || null;
-  const isAuthenticated = isClient && !!sessionData?.user;
+  const user = useMemo(() => sessionData?.user || null, [sessionData?.user]);
+  const isAuthenticated = useMemo(() => isClient && !!sessionData?.user, [isClient, sessionData?.user]);
 
   const updateProfile = async (updates: any) => {
     const baseURL = typeof window !== 'undefined' &&
@@ -67,20 +95,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     window.location.reload();
   };
 
+  const contextValue = useMemo(
+    () => ({
+      user,
+      session: sessionData,
+      isAuthenticated,
+      isPending,
+      backendReady,
+      backendError,
+      signIn: signIn.email,
+      signUp: signUp.email,
+      signOut,
+      updateProfile,
+      refreshSession,
+    }),
+    [user, sessionData, isAuthenticated, isPending, backendReady, backendError]
+  );
+
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        session: sessionData,
-        isAuthenticated,
-        isPending,
-        signIn: signIn.email,
-        signUp: signUp.email,
-        signOut,
-        updateProfile,
-        refreshSession,
-      }}
-    >
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

@@ -439,6 +439,34 @@
   justify-content: flex-end;
 }
 
+.btn-send-selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-send-selected:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-send-selected:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-send-selected:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .btn-ask-about {
   background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
   color: white;
@@ -452,14 +480,19 @@
   box-shadow: 0 2px 8px rgba(67, 160, 71, 0.3);
 }
 
-.btn-ask-about:hover {
+.btn-ask-about:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(67, 160, 71, 0.4);
 }
 
-.btn-ask-about:active {
+.btn-ask-about:active:not(:disabled) {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(67, 160, 71, 0.3);
+}
+
+.btn-ask-about:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @media (max-width: 480px) {
@@ -512,7 +545,8 @@
     max-height: 150px;
   }
 
-  .btn-ask-about {
+  .btn-ask-about,
+  .btn-send-selected {
     font-size: 12px;
     padding: 6px 12px;
   }
@@ -582,7 +616,8 @@
     font-size: 13px;
   }
 
-  .btn-ask-about {
+  .btn-ask-about,
+  .btn-send-selected {
     font-size: 11px;
     padding: 6px 10px;
   }

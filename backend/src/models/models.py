@@ -67,3 +67,46 @@ class Message(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     conversation = relationship("Conversation", back_populates="messages")
+
+class ReadingProgress(Base):
+    __tablename__ = "reading_progress"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    page_path = Column(String(500), nullable=False)  # e.g., /docs/ros2/basics
+    progress_percentage = Column(Integer, default=0)  # 0-100
+    last_position = Column(String(100), nullable=True)  # Section/heading ID
+    completed = Column(Boolean, default=False)
+    time_spent_seconds = Column(Integer, default=0)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+    user = relationship("User", backref="reading_progress")
+
+class Bookmark(Base):
+    __tablename__ = "bookmarks"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    page_path = Column(String(500), nullable=False)
+    page_title = Column(String(500), nullable=False)
+    section = Column(String(500), nullable=True)  # Specific section/heading
+    note = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    user = relationship("User", backref="bookmarks")
+
+class Note(Base):
+    __tablename__ = "notes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    page_path = Column(String(500), nullable=False)
+    content = Column(Text, nullable=False)
+    highlighted_text = Column(Text, nullable=True)
+    position = Column(String(100), nullable=True)  # Section/paragraph ID
+    color = Column(String(20), default='yellow')  # Highlight color
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+    user = relationship("User", backref="notes")

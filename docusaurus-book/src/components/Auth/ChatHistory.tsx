@@ -39,7 +39,7 @@ export default function ChatHistory() {
         return 'http://localhost:8000';
       }
     }
-    return 'https://your-backend-url.com';
+    return "https://hackathon-docusaurus.onrender.com"; ;
   };
 
   useEffect(() => {
@@ -95,6 +95,7 @@ export default function ChatHistory() {
       return;
     }
 
+    console.log(`Attempting to delete conversation with ID: ${conversationId}`);
     try {
       const response = await fetch(`${getBaseURL()}/api/conversations/${conversationId}`, {
         method: 'DELETE',
@@ -102,9 +103,11 @@ export default function ChatHistory() {
       });
 
       if (!response.ok) {
+        console.error(`Failed to delete conversation: Server responded with status ${response.status}`);
         throw new Error('Failed to delete conversation');
       }
 
+      console.log(`Successfully deleted conversation with ID: ${conversationId}`);
       setConversations(conversations.filter(c => c.id !== conversationId));
       if (selectedConversation?.id === conversationId) {
         setSelectedConversation(null);

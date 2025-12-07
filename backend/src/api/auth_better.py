@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session as DBSessionType
 from ..database import get_db
 from ..models.models import User, Session as DBSession
 from ..services.auth_service import AuthService
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import secrets
 
 router = APIRouter()
@@ -21,6 +21,20 @@ SESSION_DURATION_DAYS = 7
 # ============================================================================
 # Request/Response Models
 # ============================================================================
+
+def truncate_string_by_bytes(s: str, max_bytes: int) -> str:
+    """Truncate a string to a maximum number of bytes, ensuring valid UTF-8."""
+    encoded = s.encode('utf-8')
+    if len(encoded) <= max_bytes:
+        return s
+
+    truncated_encoded = encoded[:max_bytes]
+    # Ensure we don't cut a multi-byte character in half
+    while True:
+        try:
+            return truncated_encoded.decode('utf-8')
+        except UnicodeDecodeError:
+            truncated_encoded = truncated_encoded[:-1] # Remove last byte and try again
 
 class SignUpEmailRequest(BaseModel):
     """Better-auth sign-up request model"""
@@ -37,10 +51,12 @@ class SignUpEmailRequest(BaseModel):
 
     @field_validator('password', mode='before')
     @classmethod
-    def truncate_password(cls, v: str) -> str:
-        """Truncate password to 70 characters to avoid bcrypt 72-byte limit"""
-        if isinstance(v, str) and len(v) > 70:
-            return v[:70]
+    def validate_password_length_bytes(cls, v: str) -> str:
+        if isinstance(v, str):
+            truncated_password = truncate_string_by_bytes(v, 70) # Truncate to 70 bytes
+            if len(v.encode('utf-8')) > 70:
+                print(f"[DEBUG] SignUp: Password (byte length {len(v.encode('utf-8'))}) truncated to {len(truncated_password.encode('utf-8'))} bytes.")
+            return truncated_password
         return v
 
 class SignInEmailRequest(BaseModel):
@@ -52,10 +68,12 @@ class SignInEmailRequest(BaseModel):
 
     @field_validator('password', mode='before')
     @classmethod
-    def truncate_password(cls, v: str) -> str:
-        """Truncate password to 70 characters to avoid bcrypt 72-byte limit"""
-        if isinstance(v, str) and len(v) > 70:
-            return v[:70]
+    def validate_password_length_bytes(cls, v: str) -> str:
+        if isinstance(v, str):
+            truncated_password = truncate_string_by_bytes(v, 70) # Truncate to 70 bytes
+            if len(v.encode('utf-8')) > 70:
+                print(f"[DEBUG] SignIn: Password (byte length {len(v.encode('utf-8'))}) truncated to {len(truncated_password.encode('utf-8'))} bytes.")
+            return truncated_password
         return v
 
 class SessionData(BaseModel):
@@ -82,7 +100,7 @@ def create_session(
     session_token = secrets.token_urlsafe(32)
 
     expires_delta = timedelta(days=30 if remember_me else SESSION_DURATION_DAYS)
-    expires_at = datetime.utcnow() + expires_delta
+    expires_at = datetime.now(timezone.utc) + expires_delta
 
     new_session = DBSession(
         id=session_token,
@@ -102,8 +120,15 @@ def get_session_from_cookie(
     request: Request,
     db: DBSessionType
 ) -> Optional[DBSession]:
-    """Get valid session from cookie"""
+    """Get valid session from cookie or Authorization header"""
+    # Try cookie first
     session_token = request.cookies.get(SESSION_COOKIE_NAME)
+
+    # Fallback to Authorization header
+    if not session_token:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            session_token = auth_header.replace("Bearer ", "")
 
     if not session_token:
         return None
@@ -113,8 +138,8 @@ def get_session_from_cookie(
     if not session:
         return None
 
-    # Check if session has expired
-    if session.expires_at < datetime.utcnow():
+    # Check if session has expired - simple comparison, PostgreSQL handles timezones
+    if session.expires_at < datetime.now(timezone.utc):
         db.delete(session)
         db.commit()
         return None
@@ -177,6 +202,7 @@ async def sign_up_email(
                 error={"message": "User with this email already exists"}
             )
 
+        print(f"[DEBUG] SignUp: Password before hashing: {body.password[:10]}...")
         # Hash password using SHA-256 + bcrypt (supports unlimited length)
         hashed_password = AuthService.hash_password(body.password)
 
@@ -205,9 +231,10 @@ async def sign_up_email(
             key=SESSION_COOKIE_NAME,
             value=session.id,
             max_age=SESSION_DURATION_DAYS * 24 * 60 * 60,
-            httponly=True,
+            httponly=False,  # Allow JS access for debugging
             samesite="lax",
-            secure=False  # Set to True in production with HTTPS
+            secure=False,
+            path="/"
         )
 
         return BetterAuthResponse(
@@ -240,22 +267,40 @@ async def sign_in_email(
     Better-auth compatible sign-in endpoint
     POST /api/auth/sign-in/email
     """
+    print("=" * 70)
+    print(f"[DEBUG] SIGN-IN ENDPOINT CALLED")
+    print(f"[DEBUG] Email: {body.email}")
+    print(f"[DEBUG] Password length: {len(body.password)}")
+    print(f"[DEBUG] Password (first 10 chars): {body.password[:10]}...")
+    print("=" * 70)
+
     try:
         # Find user
         user = db.query(User).filter(User.email == body.email).first()
 
         if not user:
+            print(f"[DEBUG] User not found: {body.email}")
             return BetterAuthResponse(
                 data=None,
                 error={"message": "No account found with this email. Please sign up first."}
             )
 
+        print(f"[DEBUG] User found: {user.email} (ID: {user.id})")
+        print(f"[DEBUG] Stored password hash (first 20 chars): {user.password_hash[:20]}...")
+        print(f"[DEBUG] About to call AuthService.verify_password()")
+
         # Verify password (supports both old and new hash formats)
-        if not AuthService.verify_password(body.password, user.password_hash):
+        verification_result = AuthService.verify_password(body.password, user.password_hash)
+        print(f"[DEBUG] Password verification result: {verification_result}")
+
+        if not verification_result:
+            print(f"[DEBUG] Password verification FAILED - returning error response")
             return BetterAuthResponse(
                 data=None,
                 error={"message": "Incorrect password. Please try again."}
             )
+
+        print(f"[DEBUG] Password verification SUCCEEDED")
 
         # Upgrade old password hash to new format if needed
         if AuthService.needs_rehash(user.password_hash, body.password):
@@ -265,6 +310,7 @@ async def sign_in_email(
 
         # Create session
         session = create_session(db, user, request, remember_me=body.rememberMe)
+        print(f"[DEBUG] Session created: {session.id}")
 
         # Set session cookie
         max_age = (30 * 24 * 60 * 60) if body.rememberMe else (SESSION_DURATION_DAYS * 24 * 60 * 60)
@@ -272,11 +318,13 @@ async def sign_in_email(
             key=SESSION_COOKIE_NAME,
             value=session.id,
             max_age=max_age,
-            httponly=True,
+            httponly=False,
             samesite="lax",
-            secure=False  # Set to True in production with HTTPS
+            secure=False,
+            path="/"
         )
 
+        print(f"[DEBUG] Sign-in successful for {user.email}")
         return BetterAuthResponse(
             data={
                 "user": user_to_dict(user),
@@ -286,6 +334,14 @@ async def sign_in_email(
         )
 
     except Exception as e:
+        print("!" * 70)
+        print(f"[ERROR] EXCEPTION CAUGHT IN SIGN-IN ENDPOINT")
+        print(f"[ERROR] Exception type: {type(e).__name__}")
+        print(f"[ERROR] Exception message: {str(e)}")
+        import traceback
+        print(f"[ERROR] Traceback:")
+        traceback.print_exc()
+        print("!" * 70)
         return BetterAuthResponse(
             data=None,
             error={"message": str(e)}
@@ -322,7 +378,7 @@ async def sign_out(
             error={"message": str(e)}
         )
 
-@router.get("/get-session", response_model=BetterAuthResponse)
+@router.get("/get-session")
 async def get_session(
     request: Request,
     db: DBSessionType = Depends(get_db)
@@ -332,39 +388,39 @@ async def get_session(
     GET /api/auth/get-session
     """
     try:
+        print("[GET SESSION] called")
+        print(f"[GET SESSION] Cookies: {request.cookies}")
+        print(f"[GET SESSION] Auth header: {request.headers.get('Authorization', 'None')}")
+
         session = get_session_from_cookie(request, db)
+        print(f"[GET SESSION] Session found: {session is not None}")
 
         if not session:
-            return BetterAuthResponse(
-                data=None,
-                error=None  # No error, just no session
-            )
+            print("[GET SESSION] No session - returning null")
+            return {"user": None, "session": None}
 
         # Load user
         user = db.query(User).filter(User.id == session.user_id).first()
+        print(f"[GET SESSION] User found: {user.email if user else 'None'}")
 
         if not user:
             # Session exists but user doesn't - cleanup
             db.delete(session)
             db.commit()
-            return BetterAuthResponse(
-                data=None,
-                error=None
-            )
+            return {"user": None, "session": None}
 
-        return BetterAuthResponse(
-            data={
-                "user": user_to_dict(user),
-                "session": session_to_dict(session)
-            },
-            error=None
-        )
+        response_data = {
+            "user": user_to_dict(user),
+            "session": session_to_dict(session)
+        }
+        print(f"[GET SESSION] Returning user: {user.email}")
+        return response_data
 
     except Exception as e:
-        return BetterAuthResponse(
-            data=None,
-            error={"message": str(e)}
-        )
+        print(f"[GET SESSION ERROR] {e}")
+        import traceback
+        traceback.print_exc()
+        return {"user": None, "session": None}
 
 # ============================================================================
 # Legacy Profile Endpoints (Keep for backward compatibility)
@@ -427,7 +483,7 @@ async def update_profile(
             if hasattr(user, field):
                 setattr(user, field, value)
 
-        user.updated_at = datetime.utcnow()
+        user.updated_at = datetime.now(timezone.utc)
         db.commit()
         db.refresh(user)
 

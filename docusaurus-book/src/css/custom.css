@@ -405,3 +405,14 @@ table td {
     max-width: 100%;
   }
 }
+
+/* Homepage feature cards hover */
+.col.col--4:hover {
+  box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+[data-theme='dark'] .col.col--4:hover {
+  box-shadow: 0 4px 20px rgba(216, 27, 96, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}

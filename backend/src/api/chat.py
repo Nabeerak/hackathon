@@ -1,13 +1,14 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
-from typing import List, Optional
-from datetime import datetime
+from typing import List, Optional, AsyncGenerator
+from datetime import datetime, timezone
 from ..services.chat_service import ChatService
 from ..database import get_db
 from ..models.models import User, Conversation, Message, Session as DBSession
 from sqlalchemy.orm import Session
 import json
-from datetime import datetime
+import asyncio
 
 class ConversationBase(BaseModel):
     id: int
@@ -56,7 +57,7 @@ def get_user_from_session(request: Request, db: Session) -> Optional[User]:
         return None
 
     session = db.query(DBSession).filter(DBSession.id == session_token).first()
-    if not session or session.expires_at < datetime.utcnow():
+    if not session or session.expires_at < datetime.now(timezone.utc):
         return None
 
     return db.query(User).filter(User.id == session.user_id).first()
@@ -105,15 +106,24 @@ async def create_conversation_endpoint(request: CreateConversationRequest, db: S
     return conversation
 
 @router.delete("/conversations/{conversation_id}")
-async def delete_conversation_endpoint(conversation_id: int, user_id: int = 1, db: Session = Depends(get_db)):
+async def delete_conversation_endpoint(conversation_id: int, request: Request, db: Session = Depends(get_db)):
+    print(f"[DEBUG] DELETE /api/conversations/{conversation_id} endpoint hit.")
+    user = get_user_from_session(request, db)
+    if not user:
+        print("[DEBUG] User not authenticated for conversation deletion.")
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    print(f"[DEBUG] Authenticated user ID: {user.id}")
     conversation = db.query(Conversation).filter(
         Conversation.id == conversation_id,
-        Conversation.user_id == user_id
+        Conversation.user_id == user.id
     ).first()
     if not conversation:
+        print(f"[DEBUG] Conversation {conversation_id} not found for user {user.id}.")
         raise HTTPException(status_code=404, detail="Conversation not found")
+    print(f"[DEBUG] Deleting conversation {conversation_id} for user {user.id}.")
     db.delete(conversation)
     db.commit()
+    print(f"[DEBUG] Conversation {conversation_id} deleted successfully.")
     return {"message": "Conversation deleted successfully"}
 
 @router.get("/conversations/search", response_model=List[ConversationBase])
@@ -261,7 +271,7 @@ async def chat_endpoint(chat_request: ChatRequest, request: Request, db: Session
             message=result["response"],
             conversation_id=conversation.id,
             sources=result["sources"],
-            timestamp=datetime.utcnow().isoformat(),
+            timestamp=datetime.now(timezone.utc).isoformat(),
             processing_time=result["processing_time"],
             off_topic=result.get("off_topic", False)
         )
@@ -271,6 +281,116 @@ async def chat_endpoint(chat_request: ChatRequest, request: Request, db: Session
     except Exception as e:
         print(f"Error in chat endpoint: {e}")
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+
+@router.post("/chat/stream")
+async def chat_stream_endpoint(chat_request: ChatRequest, request: Request, db: Session = Depends(get_db)):
+    """
+    Streaming chat endpoint for real-time responses (Server-Sent Events)
+    Provides lower perceived latency by streaming response tokens as they're generated
+    """
+
+    async def generate_stream() -> AsyncGenerator[str, None]:
+        try:
+            # Get authenticated user
+            user = get_user_from_session(request, db)
+            if not user:
+                yield f"data: {json.dumps({'error': 'Not authenticated'})}\n\n"
+                return
+
+            # Get or create conversation
+            if chat_request.conversation_id:
+                conversation = db.query(Conversation).filter(
+                    Conversation.id == chat_request.conversation_id,
+                    Conversation.user_id == user.id
+                ).first()
+                if not conversation:
+                    yield f"data: {json.dumps({'error': 'Conversation not found'})}\n\n"
+                    return
+            else:
+                conversation = Conversation(
+                    user_id=user.id,
+                    title=chat_request.message[:100]
+                )
+                db.add(conversation)
+                db.commit()
+                db.refresh(conversation)
+
+            # Send conversation_id first
+            yield f"data: {json.dumps({'type': 'conversation_id', 'conversation_id': conversation.id})}\n\n"
+
+            # Get conversation history
+            messages = db.query(Message).filter(
+                Message.conversation_id == conversation.id
+            ).order_by(Message.created_at).all()
+
+            conversation_history = [
+                {"role": msg.role, "content": msg.content}
+                for msg in messages
+            ]
+
+            # Save user message
+            user_message = Message(
+                conversation_id=conversation.id,
+                role="user",
+                content=chat_request.message,
+                selected_text=chat_request.selected_text
+            )
+            db.add(user_message)
+            db.commit()
+
+            # Get response from chat service
+            result = chat_service.chat(
+                question=chat_request.message,
+                selected_text=chat_request.selected_text,
+                conversation_history=conversation_history,
+                user_profile={
+                    "experience_level": user.experience_level,
+                    "software_background": user.software_background,
+                    "hardware_background": user.hardware_background,
+                    "preferred_language": user.preferred_language,
+                    "personalization_enabled": user.personalization_enabled
+                } if user.personalization_enabled else None
+            )
+
+            # Stream response in chunks
+            response_text = result["response"]
+            chunk_size = 20  # Stream 20 characters at a time for smooth output
+
+            for i in range(0, len(response_text), chunk_size):
+                chunk = response_text[i:i + chunk_size]
+                yield f"data: {json.dumps({'type': 'chunk', 'content': chunk})}\n\n"
+                await asyncio.sleep(0.01)  # Small delay for smooth streaming
+
+            # Send sources and metadata
+            yield f"data: {json.dumps({'type': 'sources', 'sources': result['sources']})}\n\n"
+            yield f"data: {json.dumps({'type': 'metadata', 'processing_time': result['processing_time'], 'off_topic': result.get('off_topic', False)})}\n\n"
+
+            # Save assistant message
+            assistant_message = Message(
+                conversation_id=conversation.id,
+                role="assistant",
+                content=response_text,
+                sources=json.dumps(result["sources"]),
+                processing_time=result["processing_time"]
+            )
+            db.add(assistant_message)
+            db.commit()
+
+            # End stream
+            yield f"data: {json.dumps({'type': 'done'})}\n\n"
+
+        except Exception as e:
+            yield f"data: {json.dumps({'error': str(e)})}\n\n"
+
+    return StreamingResponse(
+        generate_stream(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no"  # Disable nginx buffering
+        }
+    )
 
 @router.get("/health")
 async def health_check():

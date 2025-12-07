@@ -157,6 +157,50 @@ export const Chatbot: React.FC = () => {
     setSelectionPosition(null);
   };
 
+  // Function to directly send selected text as a question
+  const handleSendSelectedText = async () => {
+    if (!selectedText.trim()) return;
+
+    const questionText = `Explain this: "${selectedText}"`;
+
+    const userMessage: Message = {
+      role: 'user',
+      content: questionText,
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setIsLoading(true);
+    setError(null);
+
+    // Clear selected text immediately
+    const textToSend = selectedText;
+    setSelectedText('');
+    setSelectionPosition(null);
+
+    try {
+      const response: ChatResponse = await chatAPI.sendMessage({
+        conversation_id: conversationId,
+        message: questionText,
+        selected_text: textToSend,
+      });
+
+      setConversationId(response.conversation_id);
+
+      const assistantMessage: Message = {
+        role: 'assistant',
+        content: typeof response.message === 'string' ? response.message : JSON.stringify(response.message, null, 2),
+        sources: response.sources,
+        timestamp: response.timestamp,
+      };
+
+      setMessages((prev) => [...prev, assistantMessage]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send message');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Function to open chatbot with selected text
   const handleAskInChat = () => {
     if (!selectedText.trim()) return;
@@ -257,11 +301,22 @@ export const Chatbot: React.FC = () => {
                     <button onClick={() => { setSelectedText(''); setSelectionPosition(null); }} className="close-selected-text">×</button>
                   </div>
                   <div className="selected-text-content">
-                    "{selectedText}"
+                    "{selectedText.substring(0, 300)}{selectedText.length > 300 ? '...' : ''}"
                   </div>
                   <div className="selected-text-actions">
-                    <button onClick={handleAskAboutSelection} className="btn-ask-about">
-                      Ask about this text
+                    <button
+                      onClick={handleSendSelectedText}
+                      className="btn-send-selected"
+                      disabled={isLoading}
+                    >
+                      ✉️ Send Now
+                    </button>
+                    <button
+                      onClick={handleAskAboutSelection}
+                      className="btn-ask-about"
+                      disabled={isLoading}
+                    >
+                      ✏️ Edit Question
                     </button>
                   </div>
                 </div>

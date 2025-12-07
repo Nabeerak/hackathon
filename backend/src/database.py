@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import NullPool
+from sqlalchemy.pool import QueuePool
 import os
 from dotenv import load_dotenv
 
@@ -16,10 +16,16 @@ if not DATABASE_URL:
         "Please ensure .env file exists with NEON_DATABASE_URL configured."
     )
 
-# Use NullPool to avoid connection pooling issues with serverless databases
+# Production-optimized connection pooling for PostgreSQL
+# Use QueuePool for better performance with concurrent requests
 engine = create_engine(
     DATABASE_URL,
-    poolclass=NullPool,
+    poolclass=QueuePool,
+    pool_size=10,  # Maintain 10 persistent connections
+    max_overflow=20,  # Allow up to 20 additional connections during peak load
+    pool_pre_ping=True,  # Verify connections before using them
+    pool_recycle=3600,  # Recycle connections after 1 hour
+    echo=False,  # Disable SQL logging in production
     connect_args={
         "connect_timeout": 10,
         "keepalives": 1,

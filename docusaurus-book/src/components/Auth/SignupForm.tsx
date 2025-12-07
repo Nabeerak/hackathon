@@ -43,10 +43,10 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
 
     try {
       // Make direct API call to our backend with custom fields
-      const baseURL = typeof window !== 'undefined' &&
-        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
+      const baseURL = (hostname === 'localhost' || hostname === '127.0.0.1')
         ? 'http://localhost:8000'
-        : 'https://your-backend-url.com';
+        : 'https://your-app-name-production.up.railway.app'; // Replace with your actual deployed backend URL
 
       const response = await fetch(`${baseURL}/api/auth/sign-up/email`, {
         method: 'POST',
@@ -72,14 +72,18 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
         return;
       }
 
-      if (result.data?.access_token) {
-        localStorage.setItem('jwt_token', result.data.access_token);
-        onSuccess?.();
-      } else if (result.data?.user) {
-        // Fallback for cases where access_token might not be directly in data, but user is present
-        onSuccess?.();
+      if (result.data?.user) {
+        // Store session token in localStorage as fallback
+        if (result.data.session?.token) {
+          localStorage.setItem('auth_session_token', result.data.session.token);
+          document.cookie = `better-auth.session_token=${result.data.session.token}; path=/; max-age=${7*24*60*60}; SameSite=Lax`;
+        }
+        setTimeout(() => {
+          onSuccess?.();
+          window.location.reload();
+        }, 300);
       } else {
-        setError('Signup failed');
+        setError('Signup failed - please try again');
       }
     } catch (err: any) {
       setError(err.message || 'Signup failed');
@@ -104,6 +108,7 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
           required
           minLength={3}
           maxLength={50}
+          autoComplete="name"
         />
       </div>
 
@@ -116,6 +121,7 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
           value={formData.email}
           onChange={handleChange}
           required
+          autoComplete="email"
         />
       </div>
 
@@ -129,6 +135,7 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
           onChange={handleChange}
           required
           minLength={8}
+          autoComplete="new-password"
         />
       </div>
 
@@ -141,6 +148,7 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
           value={formData.confirmPassword}
           onChange={handleChange}
           required
+          autoComplete="new-password"
         />
       </div>
 

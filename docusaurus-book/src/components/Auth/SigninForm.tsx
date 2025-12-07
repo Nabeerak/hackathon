@@ -32,10 +32,10 @@ export default function SigninForm({ onSuccess }: { onSuccess?: () => void }) {
 
     try {
       // Make direct API call to our backend
-      const baseURL = typeof window !== 'undefined' &&
-        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
+      const baseURL = (hostname === 'localhost' || hostname === '127.0.0.1')
         ? 'http://localhost:8000'
-        : 'https://your-backend-url.com';
+        : 'https://your-app-name-production.up.railway.app'; // Replace with your actual deployed backend URL
 
       const response = await fetch(`${baseURL}/api/auth/sign-in/email`, {
         method: 'POST',
@@ -56,14 +56,18 @@ export default function SigninForm({ onSuccess }: { onSuccess?: () => void }) {
         return;
       }
 
-      if (result.data?.access_token) {
-        localStorage.setItem('jwt_token', result.data.access_token);
-        onSuccess?.();
-      } else if (result.data?.user) {
-        // Fallback for cases where access_token might not be directly in data, but user is present
-        onSuccess?.();
+      if (result.data?.user) {
+        // Store session token in localStorage as fallback
+        if (result.data.session?.token) {
+          localStorage.setItem('auth_session_token', result.data.session.token);
+          document.cookie = `better-auth.session_token=${result.data.session.token}; path=/; max-age=${7*24*60*60}; SameSite=Lax`;
+        }
+        setTimeout(() => {
+          onSuccess?.();
+          window.location.reload();
+        }, 300);
       } else {
-        setError('Sign in failed');
+        setError('Sign in failed - please try again');
       }
     } catch (err: any) {
       setError(err.message || 'Sign in failed');
@@ -86,6 +90,7 @@ export default function SigninForm({ onSuccess }: { onSuccess?: () => void }) {
           value={formData.email}
           onChange={handleChange}
           required
+          autoComplete="email"
         />
       </div>
 
@@ -98,6 +103,7 @@ export default function SigninForm({ onSuccess }: { onSuccess?: () => void }) {
           value={formData.password}
           onChange={handleChange}
           required
+          autoComplete="current-password"
         />
       </div>
 
