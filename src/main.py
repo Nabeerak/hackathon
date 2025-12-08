@@ -4,7 +4,7 @@ load_dotenv()  # Load environment variables from .env file
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.gzip import GZIPMiddleware
+from starlette.middleware.gzip import GZipMiddleware
 from contextlib import asynccontextmanager
 import uvicorn
 import logging
