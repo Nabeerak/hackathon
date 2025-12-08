@@ -72,7 +72,7 @@ app = FastAPI(
 )
 
 # Add GZIP compression for responses > 1000 bytes
-app.add_middleware(GZIPMiddleware, minimum_size=1000)
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # CORS with optimized settings for production
 app.add_middleware(
