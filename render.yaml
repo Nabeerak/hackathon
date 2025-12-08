@@ -1,0 +1,35 @@
+services:
+  # FastAPI Backend Web Service
+  - type: web
+    name: hackathon-backend
+    runtime: python
+    region: oregon # Change to your preferred region
+    plan: free # Change to paid plan for production
+    branch: backend-deploy
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn src.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: NEON_DATABASE_URL
+        sync: false # Set manually in Render dashboard (sensitive)
+      - key: JWT_SECRET_KEY
+        sync: false # Set manually in Render dashboard (sensitive)
+      - key: BETTER_AUTH_SECRET
+        sync: false # Set manually in Render dashboard (sensitive)
+      - key: QDRANT_URL
+        sync: false # Set manually in Render dashboard (sensitive)
+      - key: QDRANT_API_KEY
+        sync: false # Set manually in Render dashboard (sensitive)
+      - key: OPENAI_API_KEY
+        sync: false # Set manually in Render dashboard (sensitive)
+      - key: CORS_ORIGINS
+        sync: false # Set manually in Render dashboard
+      - key: ENVIRONMENT
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: SESSION_DURATION_DAYS
+        value: 7
+    healthCheckPath: /api/health
+    autoDeploy: true # Auto-deploy on git push
