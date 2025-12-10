@@ -9,6 +9,9 @@ from ..models.models import User, Conversation, Message, Session as DBSession
 from sqlalchemy.orm import Session
 import json
 import asyncio
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ConversationBase(BaseModel):
     id: int
@@ -51,16 +54,48 @@ router = APIRouter()
 chat_service = ChatService()
 
 def get_user_from_session(request: Request, db: Session) -> Optional[User]:
-    """Helper to get user from session cookie"""
-    session_token = request.cookies.get("better-auth.session_token")
+    """
+    Helper to get user from session cookie or Authorization Bearer token
+
+    Supports two authentication methods:
+    1. Authorization: Bearer <token> header (recommended for cross-domain)
+    2. better-auth.session_token cookie (for same-domain)
+    """
+    session_token = None
+
+    # Try to get token from Authorization header first (for cross-domain requests)
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        session_token = auth_header.replace("Bearer ", "").strip()
+        logger.debug(f"Auth: Using Bearer token from Authorization header")
+
+    # Fallback to cookie-based auth (for same-domain requests)
     if not session_token:
+        session_token = request.cookies.get("better-auth.session_token")
+        if session_token:
+            logger.debug(f"Auth: Using session token from cookie")
+
+    if not session_token:
+        logger.debug("Auth: No session token found in header or cookie")
         return None
 
+    # Validate session token
     session = db.query(DBSession).filter(DBSession.id == session_token).first()
-    if not session or session.expires_at < datetime.now(timezone.utc):
+    if not session:
+        logger.debug(f"Auth: Session not found for token")
         return None
 
-    return db.query(User).filter(User.id == session.user_id).first()
+    if session.expires_at < datetime.now(timezone.utc):
+        logger.debug(f"Auth: Session expired for user {session.user_id}")
+        return None
+
+    user = db.query(User).filter(User.id == session.user_id).first()
+    if user:
+        logger.debug(f"Auth: Successfully authenticated user {user.id}")
+    else:
+        logger.debug(f"Auth: User not found for session")
+
+    return user
 
 @router.get("/conversations", response_model=List[ConversationBase])
 async def get_conversations(request: Request, skip: int = 0, limit: int = 20, db: Session = Depends(get_db)):

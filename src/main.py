@@ -75,17 +75,27 @@ app = FastAPI(
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # CORS with optimized settings for production
+# Note: Allow origins for local development and deployed frontends
+import os
+allowed_origins = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "https://nabeerak.github.io/hackathon/",
+    "https://nabeerak.github.io",
+    "https://hackathon-backend-rspn.onrender.com",  # Render frontend (if frontend is on same domain)
+]
+
+# Add custom origins from environment variable
+cors_origins_env = os.getenv("CORS_ORIGINS", "")
+if cors_origins_env:
+    allowed_origins.extend([origin.strip() for origin in cors_origins_env.split(",")])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "https://nabeerak.github.io/hackathon/",
-        "https://nabeerak.github.io",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"],  # Already allows Authorization header
     expose_headers=["Set-Cookie"],
     max_age=3600,  # Cache preflight requests for 1 hour
 )
