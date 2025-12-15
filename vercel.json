@@ -1,27 +1,7 @@
 {
-  "version": 2,
-  "name": "hackathon-docusaurus",
-  "buildCommand": "cd docusaurus-book && npm install && npm run build",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd docusaurus-book && npm ci && npm run build",
   "outputDirectory": "docusaurus-book/build",
-  "devCommand": "cd docusaurus-book && npm start",
-  "installCommand": "cd docusaurus-book && npm install",
-  "framework": null,
-  "public": false,
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
-  ]
+  "installCommand": "npm install --prefix ./docusaurus-book",
+  "framework": null
 }
