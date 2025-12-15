@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Physical AI & Humanoid Robotics Textbook',
   tagline: 'Bridging the gap between the digital brain and the physical body.',
-  favicon: 'img/logo.svg',
+  favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
