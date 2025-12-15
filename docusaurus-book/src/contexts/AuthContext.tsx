@@ -1,5 +1,6 @@
 import React, { createContext, useContext, ReactNode, useState, useEffect, useMemo } from 'react';
 import { authClient, checkBackendHealth } from '../lib/auth-client';
+import { BACKEND_URL } from '../config/env';
 
 const { useSession, signIn, signUp, signOut } = authClient;
 
@@ -61,12 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const isAuthenticated = useMemo(() => isClient && !!sessionData?.user, [isClient, sessionData?.user]);
 
   const updateProfile = async (updates: any) => {
-    const baseURL = typeof window !== 'undefined' &&
-      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-      ? 'http://localhost:8000'
-      : 'https://your-backend-url.com';
-
-    const response = await fetch(`${baseURL}/api/auth/profile`, {
+    const response = await fetch(`${BACKEND_URL}/api/auth/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

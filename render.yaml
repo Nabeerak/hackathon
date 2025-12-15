@@ -1,33 +1,19 @@
 services:
-  - type: web
-    name: backend-api
-    runtime: python
-    plan: free
-    rootDir: backend
-    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
-    startCommand: "uvicorn src.main:app --host 0.0.0.0 --port 10000"
-    envVars:
-      - key: PYTHON_VERSION
-        value: "3.11"
-      - key: FRONTEND_URL
-        value: "https://docusaurus-website.onrender.com"
-      - key: OPENAI_API_KEY
-        sync: false
-      - key: QDRANT_URL
-        sync: false
-      - key: QDRANT_API_KEY
-        sync: false
-      - key: NEON_DATABASE_URL
-        sync: false
-
+  # Frontend Static Site (Docusaurus)
+  # Backend is deployed separately from backend-deploy branch
   - type: web
     name: docusaurus-website
     runtime: static
     plan: free
     rootDir: docusaurus-book
     buildCommand: "npm install && npm run build"
+    staticPublishPath: docusaurus-book/build
     envVars:
       - key: NODE_VERSION
         value: "20"
       - key: REACT_APP_API_URL
-        value: "https://rnd_UBfh7FldtV9GP8z1YGVzPuzDJUe3.onrender.com/api"
+        value: "https://hackathon-backend-rspn.onrender.com/api"
+      - key: BACKEND_URL
+        value: "https://hackathon-backend-rspn.onrender.com"
+      - key: NODE_ENV
+        value: "production"

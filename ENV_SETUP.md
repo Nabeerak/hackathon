@@ -205,7 +205,7 @@ PORT=$PORT
 5. **Deploy:**
    - Click "Create Web Service"
    - Wait for deployment to complete
-   - Copy your service URL: `https://your-backend-api.onrender.com`
+   - Copy your service URL: `https://hackathon-backend-rspn.onrender.com`
 
 #### B. Frontend Deployment (GitHub Pages)
 
@@ -214,7 +214,7 @@ PORT=$PORT
 Edit `docusaurus-book/.env.production`:
 
 ```env
-REACT_APP_API_URL=https://your-backend-api.onrender.com/api
+REACT_APP_API_URL=https://hackathon-backend-rspn.onrender.com/api
 ```
 
 2. **Update docusaurus.config.js:**
@@ -225,7 +225,7 @@ module.exports = {
   baseUrl: '/hackathon/',
 
   customFields: {
-    apiUrl: process.env.REACT_APP_API_URL || 'https://your-backend-api.onrender.com/api',
+    apiUrl: process.env.REACT_APP_API_URL || 'https://hackathon-backend-rspn.onrender.com/api',
   },
 };
 ```

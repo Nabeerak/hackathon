@@ -1,27 +1,11 @@
 import { createAuthClient } from "better-auth/react";
+import { BACKEND_URL } from "../config/env";
 
-// Point better-auth client to FastAPI backend (port 8000)
+// Point better-auth client to FastAPI backend
 // Better-auth will append /api/auth to this baseURL
-// Docusaurus doesn't support REACT_APP_ env vars, so we detect environment by hostname
-const getBaseURL = () => {
-  if (typeof window === 'undefined') {
-    // Server-side rendering
-    return "http://localhost:8000";
-  }
-
-  // Client-side
-  const hostname = window.location.hostname;
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return "http://localhost:8000";
-  } else {
-    // Production - adjust this URL for your deployed backend
-    return "https://hackathon-docusaurus.onrender.com"; 
-
-  }
-};
 
 export const authClient = createAuthClient({
-  baseURL: getBaseURL(),
+  baseURL: BACKEND_URL,
   fetchOptions: {
     credentials: 'include',
     mode: 'cors',
@@ -43,9 +27,7 @@ export const { signIn, signUp, signOut, useSession } = authClient;
  * @returns Promise with health status or throws error
  */
 export async function checkBackendHealth() {
-  const baseURL = getBaseURL();
-
-  const response = await fetch(`${baseURL}/api/health`, {
+  const response = await fetch(`${BACKEND_URL}/api/health`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -1,4 +1,6 @@
-const API_BASE_URL = (typeof process !== 'undefined' && process.env?.REACT_APP_API_URL) || 'http://localhost:8000/api';
+import { API_URL } from '../config/env';
+
+const API_BASE_URL = API_URL;
 
 export interface SearchResponseItem {
   id: string;

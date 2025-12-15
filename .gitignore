@@ -87,3 +87,9 @@ htmlcov/
 
 # Problematic files
 nul
+
+# Temporary documentation and notes
+*_REPORT.md
+*_UPDATE.md
+*_GUIDE.md
+*_NOTES.md

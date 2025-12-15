@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from './Auth.module.css';
+import { BACKEND_URL } from '../../config/env';
 
 interface Conversation {
   id: number;
@@ -33,13 +34,7 @@ export default function ChatHistory() {
   const [error, setError] = useState('');
 
   const getBaseURL = () => {
-    if (typeof window !== 'undefined') {
-      const hostname = window.location.hostname;
-      if (hostname === 'localhost' || hostname === '127.0.0.1') {
-        return 'http://localhost:8000';
-      }
-    }
-    return "https://hackathon-docusaurus.onrender.com"; ;
+    return BACKEND_URL;
   };
 
   useEffect(() => {
@@ -48,12 +43,24 @@ export default function ChatHistory() {
     }
   }, [isAuthenticated]);
 
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem('auth_session_token');
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+  };
+
   const loadConversations = async () => {
     setLoading(true);
     setError('');
     try {
       const response = await fetch(`${getBaseURL()}/api/conversations`, {
         credentials: 'include',
+        headers: getAuthHeaders(),
       });
 
       if (!response.ok) {
@@ -75,6 +82,7 @@ export default function ChatHistory() {
     try {
       const response = await fetch(`${getBaseURL()}/api/conversations/${conversationId}`, {
         credentials: 'include',
+        headers: getAuthHeaders(),
       });
 
       if (!response.ok) {
@@ -100,6 +108,7 @@ export default function ChatHistory() {
       const response = await fetch(`${getBaseURL()}/api/conversations/${conversationId}`, {
         method: 'DELETE',
         credentials: 'include',
+        headers: getAuthHeaders(),
       });
 
       if (!response.ok) {

@@ -1,4 +1,6 @@
-const API_BASE_URL = (typeof process !== 'undefined' && process.env?.REACT_APP_API_URL) || 'http://localhost:8000/api';
+import { API_URL } from '../config/env';
+
+const API_BASE_URL = API_URL;
 
 export interface ChatRequest {
   conversation_id?: number;
@@ -31,12 +33,21 @@ export class ChatAPI {
   }
 
   async sendMessage(request: ChatRequest): Promise<ChatResponse> {
+    // Get the session token stored by better-auth
+    const sessionToken = localStorage.getItem('auth_session_token');
+
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+
+    // Add Authorization header if we have a session token
+    if (sessionToken) {
+      headers['Authorization'] = `Bearer ${sessionToken}`;
+    }
+
     const response = await fetch(`${this.baseURL}/chat`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('jwt_token') || ''}`, // Add JWT
-      },
+      headers,
       credentials: 'include', // Include cookies for authentication
       body: JSON.stringify(request),
     });

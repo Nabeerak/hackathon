@@ -1,4 +1,6 @@
-const API_BASE_URL = (typeof process !== 'undefined' && process.env?.REACT_APP_API_URL) || '/api';
+import { API_URL } from '../config/env';
+
+const API_BASE_URL = API_URL;
 
 export interface Conversation {
   id: string;
@@ -43,12 +45,21 @@ export class ConversationAPI {
     this.baseURL = baseURL;
   }
 
+  private getAuthHeaders(): Record<string, string> {
+    const sessionToken = localStorage.getItem('auth_session_token');
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    if (sessionToken) {
+      headers['Authorization'] = `Bearer ${sessionToken}`;
+    }
+    return headers;
+  }
+
   async getConversations(userId: number = 1, skip: number = 0, limit: number = 20): Promise<Conversation[]> {
     const response = await fetch(`${this.baseURL}/conversations?user_id=${userId}&skip=${skip}&limit=${limit}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: this.getAuthHeaders(),
       credentials: 'include', // Include cookies for authentication
     });
 
@@ -62,9 +73,7 @@ export class ConversationAPI {
   async getConversation(conversationId: string, userId: number = 1): Promise<ConversationDetail> {
     const response = await fetch(`${this.baseURL}/conversations/${conversationId}?user_id=${userId}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: this.getAuthHeaders(),
       credentials: 'include', // Include cookies for authentication
     });
 
@@ -78,9 +87,7 @@ export class ConversationAPI {
   async createConversation(request: CreateConversationRequest, userId: number = 1): Promise<Conversation> {
     const response = await fetch(`${this.baseURL}/conversations?user_id=${userId}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: this.getAuthHeaders(),
       credentials: 'include', // Include cookies for authentication
       body: JSON.stringify(request),
     });
@@ -95,9 +102,7 @@ export class ConversationAPI {
   async deleteConversation(conversationId: string, userId: number = 1): Promise<void> {
     const response = await fetch(`${this.baseURL}/conversations/${conversationId}?user_id=${userId}`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: this.getAuthHeaders(),
       credentials: 'include', // Include cookies for authentication
     });
 
@@ -109,9 +114,7 @@ export class ConversationAPI {
   async searchConversations(query: string, userId: number = 1): Promise<Conversation[]> {
     const response = await fetch(`${this.baseURL}/conversations/search?query=${encodeURIComponent(query)}&user_id=${userId}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: this.getAuthHeaders(),
       credentials: 'include', // Include cookies for authentication
     });
 
@@ -125,9 +128,7 @@ export class ConversationAPI {
   async exportConversation(conversationId: string, userId: number = 1): Promise<ConversationExportData> {
     const response = await fetch(`${this.baseURL}/conversations/${conversationId}/export?user_id=${userId}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: this.getAuthHeaders(),
       credentials: 'include', // Include cookies for authentication
     });
 
@@ -141,6 +142,7 @@ export class ConversationAPI {
   async downloadConversation(conversationId: string, filename: string): Promise<void> {
     const response = await fetch(`${this.baseURL}/conversations/${conversationId}/export`, {
       method: 'GET',
+      headers: this.getAuthHeaders(),
       credentials: 'include', // Include cookies for authentication
     });
 

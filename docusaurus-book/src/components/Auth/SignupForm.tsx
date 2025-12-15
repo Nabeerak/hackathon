@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from './Auth.module.css';
+import { BACKEND_URL } from '../../config/env';
 
 export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
   const { signUp } = useAuth();
@@ -42,11 +43,8 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
     setIsLoading(true);
 
     try {
-      // Make direct API call to our backend with custom fields
-      const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
-      const baseURL = (hostname === 'localhost' || hostname === '127.0.0.1')
-        ? 'http://localhost:8000'
-        : 'https://your-app-name-production.up.railway.app'; // Replace with your actual deployed backend URL
+      // Make direct API call to our backend using centralized config
+      const baseURL = BACKEND_URL;
 
       const response = await fetch(`${baseURL}/api/auth/sign-up/email`, {
         method: 'POST',
@@ -73,16 +71,17 @@ export default function SignupForm({ onSuccess }: { onSuccess?: () => void }) {
       }
 
       if (result.data?.user) {
-        // Store session token in localStorage as fallback
+        // Store session token in localStorage for cross-domain API calls
         if (result.data.session?.token) {
           localStorage.setItem('auth_session_token', result.data.session.token);
-          document.cookie = `better-auth.session_token=${result.data.session.token}; path=/; max-age=${7*24*60*60}; SameSite=Lax`;
+          // Also store user info for later use
+          localStorage.setItem('auth_user', JSON.stringify(result.data.user));
         }
         setTimeout(() => {
           onSuccess?.();
           window.location.reload();
         }, 300);
-      } else {
+      } else{
         setError('Signup failed - please try again');
       }
     } catch (err: any) {

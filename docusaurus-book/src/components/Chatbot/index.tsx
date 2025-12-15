@@ -3,6 +3,7 @@ import styles from './styles.module.css';
 import { chatAPI } from '../../services/chat_api';
 import { useAuth } from '../../contexts/AuthContext';
 import AuthModal from '../Auth/AuthModal';
+import { BACKEND_URL } from '../../config/env';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -112,7 +113,7 @@ export default function Chatbot() {
       console.error('Failed to send message:', err);
       const errorMessage: Message = {
         role: 'assistant',
-        content: `Error: ${err instanceof Error ? err.message : 'Failed to connect to backend. Make sure the backend server is running at http://localhost:8000'}`,
+        content: `Error: ${err instanceof Error ? err.message : `Failed to connect to backend at ${BACKEND_URL}`}`,
       };
       setMessages((prev) => [...prev, errorMessage]);
       setError(err instanceof Error ? err.message : 'Unknown error');
