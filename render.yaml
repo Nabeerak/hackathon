@@ -7,7 +7,7 @@ services:
     plan: free
     rootDir: docusaurus-book
     buildCommand: "npm install && npm run build"
-    staticPublishPath: docusaurus-book/build
+    staticPublishPath: build
     envVars:
       - key: NODE_VERSION
         value: "20"
